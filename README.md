@@ -63,7 +63,8 @@ The "Writing Lessons" module in the course shows each of these working.
 - **Site title and link:** `website.title` and `site-url` in `_quarto.yml`.
 
 ## 6. Things to know
-- Never edit `_generated/` or the built `.html` files; edit the `.qmd` sources and re-render. It is rewritten on every render from `_quarto.yml` and the lessons.
+- Never edit the built `.html` files; edit the `.qmd` sources and re-render.
+- Never edit `_generated/`. It is rewritten on every render from `_quarto.yml` and the lessons.
 - Do not name a front matter key `resources`; Quarto reserves it (this kit uses `rail-links`).
 - Progress, checkmarks and notes are saved in the learner's browser only (no account, no server).
 - For live R code, add the quarto-webr extension. The "Code blocks" lesson lists the steps.
