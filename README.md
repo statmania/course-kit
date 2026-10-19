@@ -16,7 +16,7 @@ Stop with `Ctrl+C`. To build the finished site into this folder: `quarto render`
 
 ## 3. Start your own course
 1. Copy this folder and name it after your course, for example `../my-course`.
-2. Delete the built files in the copy: `*.html`, `site_libs/`, `.quarto/`, `search.json`.
+2. Delete the built files in the copy (the old site): all `*.html`, `site_libs/`, `.quarto/`, `search.json`, `sitemap.xml`, `robots.txt`.
 3. Open `index.qmd` and change the title, description and the `course:` block
    (level, outcomes, requirements, instructor).
 4. Open `_quarto.yml`. The `sidebar:` list is your table of contents. Rename modules, add or
@@ -63,15 +63,24 @@ The "Writing Lessons" module in the course shows each of these working.
 - **Site title and link:** `website.title` and `site-url` in `_quarto.yml`.
 
 ## 6. Things to know
-- Never edit `_generated/`. It is rewritten on every render from `_quarto.yml` and the lessons.
+- Never edit `_generated/` or the built `.html` files; edit the `.qmd` sources and re-render. It is rewritten on every render from `_quarto.yml` and the lessons.
 - Do not name a front matter key `resources`; Quarto reserves it (this kit uses `rail-links`).
 - Progress, checkmarks and notes are saved in the learner's browser only (no account, no server).
 - For live R code, add the quarto-webr extension. The "Code blocks" lesson lists the steps.
 
-## 7. Publish
-```bash
-quarto render
-git add -A && git commit -m "Update course" && git push
-```
-Built HTML is ignored by git in this kit repo. If you deploy a course from the built files,
-remove those lines from `.gitignore` in the course's own repo.
+## 7. Publish (GitHub Pages)
+The built site is committed to the repo, so GitHub Pages can serve it straight from the branch.
+
+1. Set your address in `_quarto.yml`, for example
+   `site-url: "https://www.statmania.info/my-course/"`.
+2. Build and push:
+   ```bash
+   quarto render
+   git add -A && git commit -m "Update course" && git push
+   ```
+3. One-time, in the GitHub repo: Settings, Pages, Source: **Deploy from a branch**,
+   branch `main`, folder `/ (root)`.
+
+Always run `quarto render` before committing. The site shows what was last rendered, not
+what is in the `.qmd` files. The empty `.nojekyll` file must stay: it stops GitHub from
+ignoring folders that start with an underscore.

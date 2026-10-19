@@ -1,8 +1,2 @@
 /.quarto/
 **/*.quarto_ipynb
-# built site (regenerate with `quarto render`)
-*.html
-site_libs/
-search.json
-sitemap.xml
-!theme/*.html

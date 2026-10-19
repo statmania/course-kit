@@ -1,0 +1,454 @@
+[
+  {
+    "objectID": "modules/writing/components.html",
+    "href": "modules/writing/components.html",
+    "title": "Components",
+    "section": "",
+    "text": "Reading\n 12 min\nEvery component below is shown live, followed by the source that produced it.",
+    "crumbs": [
+      "Course Template",
+      "Writing Lessons",
+      "Components"
+    ]
+  },
+  {
+    "objectID": "modules/writing/components.html#key-takeaways",
+    "href": "modules/writing/components.html#key-takeaways",
+    "title": "Components",
+    "section": "Key takeaways",
+    "text": "Key takeaways\nWrap a bulleted list in a .takeaways div. On a wide screen the script lifts it into the right column at the top of the page, which is where the box at the top right of this page came from. On a narrow screen it stays inline.\n::: {.takeaways}\n- Short bullet one.\n- Short bullet two.\n:::",
+    "crumbs": [
+      "Course Template",
+      "Writing Lessons",
+      "Components"
+    ]
+  },
+  {
+    "objectID": "modules/writing/components.html#callouts",
+    "href": "modules/writing/components.html#callouts",
+    "title": "Components",
+    "section": "Callouts",
+    "text": "Callouts\nQuarto’s built-in callouts are already themed.\n\n\n\n\n\n\nNoteA note\n\n\n\nUse for neutral background information.\n\n\n\n\n\n\n\n\nWarningA warning\n\n\n\nUse for mistakes that cost time.\n\n\n::: {.callout-tip}\n## Title\nBody text.\n:::\nTypes available: note, tip, important, warning, caution.",
+    "crumbs": [
+      "Course Template",
+      "Writing Lessons",
+      "Components"
+    ]
+  },
+  {
+    "objectID": "modules/writing/components.html#discussion-prompt",
+    "href": "modules/writing/components.html#discussion-prompt",
+    "title": "Components",
+    "section": "Discussion prompt",
+    "text": "Discussion prompt\nPlace a “Discuss first” box before the answer so learners commit to a guess.\n&lt;div class=\"sm-discuss\"&gt;\n  &lt;p class=\"sm-discuss-label\"&gt;&lt;i class=\"fa-solid fa-comments\"&gt;&lt;/i&gt;Discuss first&lt;/p&gt;\n  &lt;p&gt;What do you expect to happen, and why?&lt;/p&gt;\n&lt;/div&gt;\nWrap raw HTML in a ```{=html} fence so Quarto passes it through untouched.",
+    "crumbs": [
+      "Course Template",
+      "Writing Lessons",
+      "Components"
+    ]
+  },
+  {
+    "objectID": "modules/writing/components.html#quizzes",
+    "href": "modules/writing/components.html#quizzes",
+    "title": "Components",
+    "section": "Quizzes",
+    "text": "Quizzes\nTwo types, graded in the browser with no server. Multiple choice matches the value of the chosen radio button to data-answer:\n\n  Q1. How many options can be correct in a mcq quiz?\n  \n     Any number\n     Exactly one\n     None\n  \n  Check Answer\n  \n\nFill in the blank matches the typed text exactly (after trimming):\n\n  Q2. Which attribute holds the correct answer?\n  \n    \n  \n  Check Answer\n  \n\n\n\n\n\n\n\nWarningUnique radio names\n\n\n\nGive each question its own radio name (for example q-components-1, q-components-2). Questions that share a name deselect each other.",
+    "crumbs": [
+      "Course Template",
+      "Writing Lessons",
+      "Components"
+    ]
+  },
+  {
+    "objectID": "modules/writing/components.html#tabs-and-margin-notes",
+    "href": "modules/writing/components.html#tabs-and-margin-notes",
+    "title": "Components",
+    "section": "Tabs and margin notes",
+    "text": "Tabs and margin notes\nUse Quarto tabsets to show alternatives side by side:\n\nMarkdownResult\n\n\n::: {.panel-tabset}\n## Tab one\nContent\n## Tab two\nContent\n:::\n\n\nExactly this: a row of tabs with one panel visible.\n\n\n\nShort asides, such as a glossary or a tip, go in the right column with .column-margin. Wherever you place them in the lesson, they are collected into the right-hand rail, between the resources and your notes.\n\n\nMargin note. This sits in the right-hand column. Use it for definitions, tips and links that should not interrupt the main text.\n\n\n.takeaways lifts into the right column.\nQuizzes are plain HTML with data-quiz and data-answer.\nUse .column-margin for asides and .panel-tabset for alternatives.",
+    "crumbs": [
+      "Course Template",
+      "Writing Lessons",
+      "Components"
+    ]
+  },
+  {
+    "objectID": "modules/writing/lesson-anatomy.html",
+    "href": "modules/writing/lesson-anatomy.html",
+    "title": "Anatomy of a lesson",
+    "section": "",
+    "text": "Reading\n 7 min\nLook at the top of this page: the coloured chips (Reading, 7 min) and the box with objectives. None of that is written in the page body. It is all drawn from the front matter.",
+    "crumbs": [
+      "Course Template",
+      "Writing Lessons",
+      "Anatomy of a lesson"
+    ]
+  },
+  {
+    "objectID": "modules/writing/lesson-anatomy.html#the-front-matter",
+    "href": "modules/writing/lesson-anatomy.html#the-front-matter",
+    "title": "Anatomy of a lesson",
+    "section": "The front matter",
+    "text": "The front matter\n---\ntitle: \"Anatomy of a lesson\"\ndescription: \"One sentence. Shown on the home page and in search.\"\nminutes: 7\nkind: read          # read | code | quiz | lab\nobjectives:\n  - \"Write a lesson's front matter\"\n  - \"Choose a lesson kind and time estimate\"\n---\n\n\n\n\n\n\n\nField\nUsed for\n\n\n\n\ntitle\nPage title, sidebar entry, home page row\n\n\ndescription\nSubtitle and the grey line under the row on the home page\n\n\nminutes\nThe time chip, the module total and the course total\n\n\nkind\nThe icon and colour: read, code, quiz or lab\n\n\nobjectives\nThe “By the end of this lesson you will” box\n\n\n\n\n\n\n\n\n\nImportantminutes switches the header on\n\n\n\nThe header is only drawn on pages that define minutes. Module overview pages omit it on purpose.",
+    "crumbs": [
+      "Course Template",
+      "Writing Lessons",
+      "Anatomy of a lesson"
+    ]
+  },
+  {
+    "objectID": "modules/writing/lesson-anatomy.html#a-good-lesson-shape",
+    "href": "modules/writing/lesson-anatomy.html#a-good-lesson-shape",
+    "title": "Anatomy of a lesson",
+    "section": "A good lesson shape",
+    "text": "A good lesson shape\n\nObjectives (from front matter).\nA short opening that says why this matters.\nOne idea per ## heading. Each heading becomes an entry in the right-hand outline.\nA Check your understanding section with one to three questions.\nA .takeaways block with two to four bullets.\n\n\n  Discuss first\n  If you could only keep three bullets of this lesson, which would they be? Hold that thought: it is exactly what goes in the takeaways box.",
+    "crumbs": [
+      "Course Template",
+      "Writing Lessons",
+      "Anatomy of a lesson"
+    ]
+  },
+  {
+    "objectID": "modules/writing/lesson-anatomy.html#check-your-understanding",
+    "href": "modules/writing/lesson-anatomy.html#check-your-understanding",
+    "title": "Anatomy of a lesson",
+    "section": "Check your understanding",
+    "text": "Check your understanding\n\n  Q1. Which front matter field turns the lesson header on?\n  \n    \n  \n  Check Answer\n  \n\n\n\nFront matter drives the header, time estimates and the home page.\nkind is one of read, code, quiz or lab.\nKeep one idea per heading and end with a quiz and takeaways.",
+    "crumbs": [
+      "Course Template",
+      "Writing Lessons",
+      "Anatomy of a lesson"
+    ]
+  },
+  {
+    "objectID": "modules/publishing/index.html",
+    "href": "modules/publishing/index.html",
+    "title": "Make It Yours",
+    "section": "",
+    "text": "Once your lessons exist, these two lessons cover the look of the course and getting it online.\n3.1ThemingChange colours and column widths from one SCSS file.Lab8 min3.2Rendering and publishingPreview locally, render, and deploy the finished course.Quiz6 min\n\n\n\n Back to top",
+    "crumbs": [
+      "Course Template",
+      "Make It Yours"
+    ]
+  },
+  {
+    "objectID": "modules/publishing/publishing.html",
+    "href": "modules/publishing/publishing.html",
+    "title": "Rendering and publishing",
+    "section": "",
+    "text": "Quiz\n 6 min",
+    "crumbs": [
+      "Course Template",
+      "Make It Yours",
+      "Rendering and publishing"
+    ]
+  },
+  {
+    "objectID": "modules/publishing/publishing.html#preview-while-you-write",
+    "href": "modules/publishing/publishing.html#preview-while-you-write",
+    "title": "Rendering and publishing",
+    "section": "Preview while you write",
+    "text": "Preview while you write\nquarto preview\nThe page reloads when you save. The pre-render script runs first, so the home page and module pages are always current.",
+    "crumbs": [
+      "Course Template",
+      "Make It Yours",
+      "Rendering and publishing"
+    ]
+  },
+  {
+    "objectID": "modules/publishing/publishing.html#render-the-site",
+    "href": "modules/publishing/publishing.html#render-the-site",
+    "title": "Rendering and publishing",
+    "section": "Render the site",
+    "text": "Render the site\nquarto render\nBecause output-dir is ., the HTML lands next to the sources, which is how the courses/ repo is served: statmania.info/courses/&lt;slug&gt;/.",
+    "crumbs": [
+      "Course Template",
+      "Make It Yours",
+      "Rendering and publishing"
+    ]
+  },
+  {
+    "objectID": "modules/publishing/publishing.html#before-you-publish",
+    "href": "modules/publishing/publishing.html#before-you-publish",
+    "title": "Rendering and publishing",
+    "section": "Before you publish",
+    "text": "Before you publish\n\nEvery lesson has title, description, minutes and kind.\nEvery lesson has a quiz or a takeaways block.\nindex.qmd outcomes match what the lessons actually teach.\nCourse appears in the hub page courses/index.html.\nPrevious and next links walk the lessons in the right order.",
+    "crumbs": [
+      "Course Template",
+      "Make It Yours",
+      "Rendering and publishing"
+    ]
+  },
+  {
+    "objectID": "modules/publishing/publishing.html#check-your-understanding",
+    "href": "modules/publishing/publishing.html#check-your-understanding",
+    "title": "Rendering and publishing",
+    "section": "Check your understanding",
+    "text": "Check your understanding\n\n  Q1. Type the command that serves the course locally and reloads on save.\n  \n    \n  \n  Check Answer\n  \n\nYou have finished the course. Press Mark as complete on this page, then go back to the course home and watch the progress ring reach 100%.\n\n\nquarto preview while writing, quarto render to publish.\nRun the checklist before you ship.",
+    "crumbs": [
+      "Course Template",
+      "Make It Yours",
+      "Rendering and publishing"
+    ]
+  },
+  {
+    "objectID": "modules/start/how-it-works.html",
+    "href": "modules/start/how-it-works.html",
+    "title": "How the template works",
+    "section": "",
+    "text": "Reading\n 6 min\nYou are reading a lesson page right now, so you are already inside the template. Look at the screen: the course tree is on the left, this lesson is in the middle, and a context rail is on the right.",
+    "crumbs": [
+      "Course Template",
+      "Start Here",
+      "How the template works"
+    ]
+  },
+  {
+    "objectID": "modules/start/how-it-works.html#the-three-columns",
+    "href": "modules/start/how-it-works.html#the-three-columns",
+    "title": "How the template works",
+    "section": "The three columns",
+    "text": "The three columns\n\n\n\n\n\n\n\n\nColumn\nWhat it shows\nImplemented with\n\n\n\n\nLeft\nThe course tree: modules, lessons, your current position, and a green check on finished lessons\nQuarto’s docked sidebar\n\n\nCentre\nThe lesson: header, objectives, content, quizzes, previous and next cards\nThe page body\n\n\nRight\n“On this page” with scroll tracking, key takeaways, and a Mark as complete button\nQuarto’s margin column\n\n\n\nOn a narrow screen the left column collapses into a menu and the right column drops below the lesson.",
+    "crumbs": [
+      "Course Template",
+      "Start Here",
+      "How the template works"
+    ]
+  },
+  {
+    "objectID": "modules/start/how-it-works.html#what-is-generated-and-what-you-write",
+    "href": "modules/start/how-it-works.html#what-is-generated-and-what-you-write",
+    "title": "How the template works",
+    "section": "What is generated, and what you write",
+    "text": "What is generated, and what you write\nYou write the lessons. Everything that merely lists lessons is generated, so it can never drift out of date.\n\n  Discuss first\n  The course home page shows a lesson count, total time and quiz count. Where do you think those numbers come from: a hand-edited list, or the lessons themselves?\n\nThey come from the lessons. Before each render, scripts/build.py reads the sidebar order in _quarto.yml and the front matter of every lesson, then writes the home page and the module overview pages into _generated/. Add a lesson to the sidebar and it appears everywhere.\n\n\n\n\n\n\nNoteNever edit _generated/\n\n\n\nThose files are overwritten on every render. Change the source (_quarto.yml, index.qmd or a lesson’s front matter) instead.",
+    "crumbs": [
+      "Course Template",
+      "Start Here",
+      "How the template works"
+    ]
+  },
+  {
+    "objectID": "modules/start/how-it-works.html#where-progress-lives",
+    "href": "modules/start/how-it-works.html#where-progress-lives",
+    "title": "How the template works",
+    "section": "Where progress lives",
+    "text": "Where progress lives\nWhen you press Mark as complete the lesson id is stored in your browser’s localStorage. The sidebar check, the module counters and the progress ring on the home page all read that one list. There is no account and no server, which also means progress is per browser.",
+    "crumbs": [
+      "Course Template",
+      "Start Here",
+      "How the template works"
+    ]
+  },
+  {
+    "objectID": "modules/start/how-it-works.html#check-your-understanding",
+    "href": "modules/start/how-it-works.html#check-your-understanding",
+    "title": "How the template works",
+    "section": "Check your understanding",
+    "text": "Check your understanding\n\n  Q1. Which column holds the \"On this page\" outline?\n  \n     The left column\n     The centre column\n     The right column\n  \n  Check Answer\n  \n\n\n\n  Q2. Fill in the blank: build.py writes the home page into the folder named below.\n  \n    ____/home.md\n    \n  \n  Check Answer\n  \n\n\n\nLeft = course tree, centre = lesson, right = context rail.\nYou write lessons; lists, counts and the home page are generated.\nProgress is stored in the browser, with no server.",
+    "crumbs": [
+      "Course Template",
+      "Start Here",
+      "How the template works"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Build a Course with the Stat Mania Template",
+    "section": "",
+    "text": "All coursesAuthoringQuarto\n\n  \n    Beginner\n    Build a Course with the Stat Mania Template\n    A self-guided tour of the course template itself: learn how modules, lessons, quizzes, takeaways and progress tracking fit together, then copy it to start your own course.\n    \n      SM\n      Created byStat Mania, Course authoring team\n       Last updated 10.2026\n    \n  \n\n\n\n   Overview\n   Course content\n   Instructor\n\n\n\n  📚 What you'll learn\n  Understand how the three-column course layout maps to files and settings.Create modules and lessons and put them in the right order.Use front matter to drive lesson headers, time estimates and the home page.Add takeaways, callouts, discussion prompts and graded quizzes.Write code blocks, and know how to switch on live, executable code.Customise colours and layout, then render and publish the course.\n  3modules7lessons53 minof content8quiz questions\n  🧰 Requirements\n  A text editor and Quarto 1.4 or newer.Python 3 with PyYAML (used by the pre-render script).No prior Quarto experience needed.\n\n\n\n  Course contentCollapse all\n  Module 1Start Here2 lessons · 11 minWhat the template is, how a course is organised, and where every file lives.1.1How the template worksThe three columns, the generated home page and where progress is stored.Reading6 min1.2Project structureA tour of the folders and the one file that defines the course order.Reading5 minModule 2Writing Lessons3 lessons · 28 minFront matter, reusable components and code cells: everything you use day to day.2.1Anatomy of a lessonThe front matter fields that drive the lesson header and the home page.Reading7 min2.2ComponentsTakeaways, callouts, discussion prompts, quizzes, tabs and margin notes.Reading12 min2.3Code blocks and live codeShow code, run code at build time, or run it in the learner's browser.Code9 minModule 3Make It Yours2 lessons · 14 minRe-skin the theme, then render and deploy.3.1ThemingChange colours and column widths from one SCSS file.Lab8 min3.2Rendering and publishingPreview locally, render, and deploy the finished course.Quiz6 min\n\n\n\n  \n    SM\n    Stat Mania\n    Course authoring teamStat Mania builds free, hands-on statistics and programming courses that run entirely in the browser.\n  \n\n\n\n\n\n\n\n\n\n  \n    \n      \n      0%0 of 7 lessons\n    \n    Start course \n    Reset progress\n    Modules and lessonsBuilt-in quizzesSaved progress, no accountWorks on phones\n  \n\n Back to top",
+    "crumbs": [
+      "Course Template",
+      "Course Home"
+    ]
+  },
+  {
+    "objectID": "modules/start/project-structure.html",
+    "href": "modules/start/project-structure.html",
+    "title": "Project structure",
+    "section": "",
+    "text": "Reading\n 5 min\nA course is one self-contained Quarto website project. Copy the whole folder to start a new course.",
+    "crumbs": [
+      "Course Template",
+      "Start Here",
+      "Project structure"
+    ]
+  },
+  {
+    "objectID": "modules/start/project-structure.html#one-file-controls-the-order",
+    "href": "modules/start/project-structure.html#one-file-controls-the-order",
+    "title": "Project structure",
+    "section": "One file controls the order",
+    "text": "One file controls the order\nThe sidebar in _quarto.yml is the table of contents of the whole course:\nsidebar:\n  contents:\n    - text: \"Course Home\"\n      href: index.qmd\n    - section: \"Start Here\"\n      href: modules/start/index.qmd\n      contents:\n        - modules/start/how-it-works.qmd\n        - modules/start/project-structure.qmd\nReorder lines to reorder the course. Previous and next links, the home page and the module pages all follow this list.\n\n\n\n\n\n\nTipName files by topic\n\n\n\nUse project-structure.qmd, not lesson2.qmd. Moving a lesson then never means renaming files or fixing links.\n\n\n\n\nGlossary\nModule: a group of lessons, one folder.\nLesson: one .qmd page.\nFront matter: the YAML block at the top of a page.",
+    "crumbs": [
+      "Course Template",
+      "Start Here",
+      "Project structure"
+    ]
+  },
+  {
+    "objectID": "modules/start/project-structure.html#check-your-understanding",
+    "href": "modules/start/project-structure.html#check-your-understanding",
+    "title": "Project structure",
+    "section": "Check your understanding",
+    "text": "Check your understanding\n\n  Q1. You want lesson B to come before lesson A. What do you change?\n  \n     Rename the files with number prefixes\n     Swap their lines in the sidebar in _quarto.yml\n     Edit _generated/home.md\n  \n  Check Answer\n  \n\n\n\nOne folder = one self-contained course.\nThe sidebar in _quarto.yml defines the order.\nName files by topic, not by number.",
+    "crumbs": [
+      "Course Template",
+      "Start Here",
+      "Project structure"
+    ]
+  },
+  {
+    "objectID": "modules/start/index.html",
+    "href": "modules/start/index.html",
+    "title": "Start Here",
+    "section": "",
+    "text": "This module gives you the big picture. Read the two lessons in order, then move on to writing your own.\n1.1How the template worksThe three columns, the generated home page and where progress is stored.Reading6 min1.2Project structureA tour of the folders and the one file that defines the course order.Reading5 min\n\n\n\n Back to top",
+    "crumbs": [
+      "Course Template",
+      "Start Here"
+    ]
+  },
+  {
+    "objectID": "modules/publishing/theming.html",
+    "href": "modules/publishing/theming.html",
+    "title": "Theming",
+    "section": "",
+    "text": "Lab\n 8 min\nAll visual design lives in theme/course.scss. Quarto compiles it together with the Bootstrap cosmo theme.",
+    "crumbs": [
+      "Course Template",
+      "Make It Yours",
+      "Theming"
+    ]
+  },
+  {
+    "objectID": "modules/publishing/theming.html#colours",
+    "href": "modules/publishing/theming.html#colours",
+    "title": "Theming",
+    "section": "Colours",
+    "text": "Colours\nThe palette is a handful of variables at the top of the file:\n$sm-bg:     #05070d;   // page background\n$sm-bg2:    #0a0f1e;   // panels, cards, code blocks\n$sm-cyan:   #00e5ff;   // primary accent\n$sm-purple: #a855f7;\n$sm-pink:   #ff2fb4;\nChange $sm-cyan and the buttons, links, active sidebar item, progress ring and chips all follow.\n\n\n\n\n\n\nTipPanels use $sm-bg2\n\n\n\nUse $sm-bg2 for anything that should read as a distinct panel. Using the page colour makes cards disappear into the background.",
+    "crumbs": [
+      "Course Template",
+      "Make It Yours",
+      "Theming"
+    ]
+  },
+  {
+    "objectID": "modules/publishing/theming.html#logo",
+    "href": "modules/publishing/theming.html#logo",
+    "title": "Theming",
+    "section": "Logo",
+    "text": "Logo\nThe navbar logo is img/statmania_logo.svg. To change it:\n\nDrop your own file into img/ (SVG is best; PNG works too).\nIn _quarto.yml, point the navbar at it and choose where a click goes:\n\nwebsite:\n  navbar:\n    logo: img/my-logo.svg\n    logo-href: https://www.statmania.info/\nThe logo is shown at most 30px tall, so a wide, short image works best. To remove it, delete the logo: line.",
+    "crumbs": [
+      "Course Template",
+      "Make It Yours",
+      "Theming"
+    ]
+  },
+  {
+    "objectID": "modules/publishing/theming.html#footer",
+    "href": "modules/publishing/theming.html#footer",
+    "title": "Theming",
+    "section": "Footer",
+    "text": "Footer\nThe multi-column footer is plain HTML in theme/footer.html: a brand column with social icons, then Courses, Resources and Company link columns. Edit the hrefs directly. Social links ship as # placeholders, so replace each # with your profile URL. To add or remove an icon, copy a line in .sm-social and pick a name from the Font Awesome brands list (for example fa-brands fa-instagram).",
+    "crumbs": [
+      "Course Template",
+      "Make It Yours",
+      "Theming"
+    ]
+  },
+  {
+    "objectID": "modules/publishing/theming.html#column-widths",
+    "href": "modules/publishing/theming.html#column-widths",
+    "title": "Theming",
+    "section": "Column widths",
+    "text": "Column widths\nThe lesson fills the window. Only the two side columns have fixed widths: the left course tree and the right rail.\n$grid-sidebar-width: 290px !default;   // left course tree\nThe right rail width (290px) and the gutters are set in the @media (min-width: 992px) block at the bottom of the file. To keep lines readable on very wide screens, add max-width: 75rem to main.content &gt; *.\n\n\n\n\n\n\nWarningChange the grid, not a CSS width on the sidebar\n\n\n\nQuarto lays the page out on a CSS grid. Setting width on #quarto-sidebar only resizes the box and clips the content, so edit $grid-sidebar-width or the grid block instead.",
+    "crumbs": [
+      "Course Template",
+      "Make It Yours",
+      "Theming"
+    ]
+  },
+  {
+    "objectID": "modules/publishing/theming.html#your-turn",
+    "href": "modules/publishing/theming.html#your-turn",
+    "title": "Theming",
+    "section": "Your turn",
+    "text": "Your turn\nOpen theme/course.scss, change $sm-cyan to #facc15, run quarto preview, and watch the whole course turn yellow. Then change it back.\n\n  Discuss\n  Why do you think the template defines colours once as variables, instead of writing hex values wherever they are needed?\n\n\n\nEdit colours via the $sm-* variables.\nSwap the logo via navbar.logo in _quarto.yml.\nFooter links and social icons live in theme/footer.html.\nThe lesson column is fluid; resize the sides via $grid-sidebar-width and the grid block.\nUse $sm-bg2 for panels.",
+    "crumbs": [
+      "Course Template",
+      "Make It Yours",
+      "Theming"
+    ]
+  },
+  {
+    "objectID": "modules/writing/code-cells.html",
+    "href": "modules/writing/code-cells.html",
+    "title": "Code blocks and live code",
+    "section": "",
+    "text": "Code\n 9 min\nThere are three levels of “code” in a lesson, from simplest to most interactive.",
+    "crumbs": [
+      "Course Template",
+      "Writing Lessons",
+      "Code blocks and live code"
+    ]
+  },
+  {
+    "objectID": "modules/writing/code-cells.html#static-code",
+    "href": "modules/writing/code-cells.html#static-code",
+    "title": "Code blocks and live code",
+    "section": "1. Static code",
+    "text": "1. Static code\nA normal fenced block is highlighted and gets a copy button. Add a filename and line numbers when you want to refer to specific lines.\n\n\ngreet.py\n\ndef greet(name):\n    return f\"Hello, {name}!\"\n\nprint(greet(\"Ada\"))",
+    "crumbs": [
+      "Course Template",
+      "Writing Lessons",
+      "Code blocks and live code"
+    ]
+  },
+  {
+    "objectID": "modules/writing/code-cells.html#build-time-execution",
+    "href": "modules/writing/code-cells.html#build-time-execution",
+    "title": "Code blocks and live code",
+    "section": "2. Build-time execution",
+    "text": "2. Build-time execution\nFence with the language in braces and Quarto runs the code when it renders, then embeds the output. Learners see the result but cannot edit it.\n```{python}\nsquares = [n * n for n in range(1, 6)]\nsquares\n```\nThis needs a Jupyter install (python3 -m pip install jupyter). The demo above is left unexecuted so this template renders with nothing but Quarto and PyYAML. For R, use the knitr engine with identical syntax: {r}.",
+    "crumbs": [
+      "Course Template",
+      "Writing Lessons",
+      "Code blocks and live code"
+    ]
+  },
+  {
+    "objectID": "modules/writing/code-cells.html#live-in-browser-execution",
+    "href": "modules/writing/code-cells.html#live-in-browser-execution",
+    "title": "Code blocks and live code",
+    "section": "3. Live, in-browser execution",
+    "text": "3. Live, in-browser execution\nFor a course where learners edit and run code, add the quarto-webr extension. It runs a real R in the browser through WebAssembly, with nothing to install. The rprogramming course already uses it.\n---\nengine: knitr\nfilters:\n  - webr\n---\n\n```{webr-r}\nx &lt;- c(1, 2, 3)\nmean(x)\n```\n\n\n\n\n\n\nNoteTurning this template into the R course\n\n\n\n\nCopy this folder to courses/rprogramming-v2/.\nRun quarto add coatless/quarto-webr inside it.\nAdd engine: knitr and filters: [webr] to lesson front matter (or once under format.html in _quarto.yml).\nPort the old lessons: the quiz and “discuss first” markup is identical, so they paste straight in.\nCopy qwebr-force-dark.js from the old course so the editor matches the dark theme.",
+    "crumbs": [
+      "Course Template",
+      "Writing Lessons",
+      "Code blocks and live code"
+    ]
+  },
+  {
+    "objectID": "modules/writing/code-cells.html#check-your-understanding",
+    "href": "modules/writing/code-cells.html#check-your-understanding",
+    "title": "Code blocks and live code",
+    "section": "Check your understanding",
+    "text": "Check your understanding\n\n  Q1. Which option lets learners edit and run code themselves?\n  \n     A plain fenced code block\n     A build-time {python} cell\n     A quarto-webr cell\n  \n  Check Answer\n  \n\n\n\nStatic blocks show code, build-time cells show its output.\nquarto-webr makes R cells editable and runnable in the browser.\nQuiz markup is shared with the old R course, so lessons port unchanged.",
+    "crumbs": [
+      "Course Template",
+      "Writing Lessons",
+      "Code blocks and live code"
+    ]
+  },
+  {
+    "objectID": "modules/writing/index.html",
+    "href": "modules/writing/index.html",
+    "title": "Writing Lessons",
+    "section": "",
+    "text": "This is the module you will come back to most often. Each lesson focuses on one authoring skill.\n2.1Anatomy of a lessonThe front matter fields that drive the lesson header and the home page.Reading7 min2.2ComponentsTakeaways, callouts, discussion prompts, quizzes, tabs and margin notes.Reading12 min2.3Code blocks and live codeShow code, run code at build time, or run it in the learner's browser.Code9 min\n\n\n\n Back to top",
+    "crumbs": [
+      "Course Template",
+      "Writing Lessons"
+    ]
+  }
+]

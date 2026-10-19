@@ -8,7 +8,7 @@ project:
 
 website:
   title: "Stat Mania"
-  # site-url: "https://www.statmania.info/courses/<slug>/"   # set per course (enables sitemap.xml)
+  site-url: "https://www.statmania.info/course-kit/"   # set per course (enables sitemap.xml)
   page-navigation: true
   back-to-top-navigation: true
   bread-crumbs: true
