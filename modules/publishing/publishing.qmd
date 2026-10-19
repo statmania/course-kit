@@ -7,6 +7,12 @@ objectives:
   - "Preview while writing"
   - "Render the final site"
   - "List what to check before you publish"
+cheatsheet:
+  - { code: "quarto preview", text: "Live preview" }
+  - { code: "quarto render", text: "Build the site" }
+  - { code: "git push", text: "Publish to GitHub" }
+rail-links:
+  - { title: "Publishing with Quarto", url: "https://quarto.org/docs/publishing/", icon: "fa-rocket" }
 ---
 
 ## Preview while you write

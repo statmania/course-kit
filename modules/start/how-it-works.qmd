@@ -7,6 +7,13 @@ objectives:
   - "Name what each of the three columns is for"
   - "Explain what is generated and what you write by hand"
   - "Describe how progress is tracked without a server"
+cheatsheet:
+  - { code: "left", text: "Course tree: modules and lessons" }
+  - { code: "centre", text: "The lesson itself" }
+  - { code: "right", text: "Outline, takeaways, notes" }
+rail-links:
+  - { title: "Quarto website guide", url: "https://quarto.org/docs/websites/", icon: "fa-book" }
+  - { title: "Course kit on GitHub", url: "https://github.com/statmania/course-kit", icon: "fa-brands fa-github" }
 ---
 
 You are reading a lesson page right now, so you are already inside the template. Look at the screen: the course tree is on the left, this lesson is in the middle, and a context rail is on the right.

@@ -6,6 +6,14 @@ kind: lab
 objectives:
   - "Change the accent colours and the logo"
   - "Resize the three columns safely"
+cheatsheet:
+  - { code: "$sm-cyan", text: "Primary accent colour" }
+  - { code: "$sm-bg2", text: "Panels and cards" }
+  - { code: "navbar.logo", text: "Navbar logo path" }
+  - { code: "theme/footer.html", text: "Footer links and icons" }
+rail-links:
+  - { title: "Quarto theming", url: "https://quarto.org/docs/output-formats/html-themes.html", icon: "fa-palette" }
+  - { title: "Font Awesome icons", url: "https://fontawesome.com/search?ic=brands", icon: "fa-icons" }
 ---
 
 All visual design lives in `theme/course.scss`. Quarto compiles it together with the Bootstrap *cosmo* theme.
@@ -45,6 +53,10 @@ website:
 
 The logo is shown at most 30px tall, so a wide, short image works best. To remove it, delete the `logo:` line.
 
+## Footer
+
+The multi-column footer is plain HTML in `theme/footer.html`: a brand column with social icons, then Courses, Resources and Company link columns. Edit the `href`s directly. Social links ship as `#` placeholders, so replace each `#` with your profile URL. To add or remove an icon, copy a line in `.sm-social` and pick a name from the [Font Awesome brands](https://fontawesome.com/search?ic=brands) list (for example `fa-brands fa-instagram`).
+
 ## Column widths
 
 The lesson fills the window. Only the two side columns have fixed widths: the left course tree and the right rail.
@@ -74,6 +86,7 @@ Open `theme/course.scss`, change `$sm-cyan` to `#facc15`, run `quarto preview`, 
 ::: {.takeaways}
 - Edit colours via the `$sm-*` variables.
 - Swap the logo via `navbar.logo` in `_quarto.yml`.
+- Footer links and social icons live in `theme/footer.html`.
 - The lesson column is fluid; resize the sides via `$grid-sidebar-width` and the grid block.
 - Use `$sm-bg2` for panels.
 :::

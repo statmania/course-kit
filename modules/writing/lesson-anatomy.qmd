@@ -7,6 +7,14 @@ objectives:
   - "Write a lesson's front matter"
   - "Choose a lesson kind and time estimate"
   - "Write learning objectives that show up in the header"
+cheatsheet:
+  - { code: "minutes: 7", text: "Time chip; turns the header on" }
+  - { code: "kind: code", text: "read, code, quiz or lab" }
+  - { code: "objectives:", text: "List shown in the header box" }
+  - { code: "cheatsheet:", text: "Right-rail quick reference" }
+  - { code: "rail-links:", text: "Right-rail links" }
+rail-links:
+  - { title: "Quarto front matter options", url: "https://quarto.org/docs/reference/formats/html.html", icon: "fa-book" }
 ---
 
 Look at the top of this page: the coloured chips (*Reading*, *7 min*) and the box with objectives. None of that is written in the page body. It is all drawn from the front matter.

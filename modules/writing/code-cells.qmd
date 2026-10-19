@@ -8,6 +8,15 @@ objectives:
   - "Show syntax-highlighted code with a filename and line numbers"
   - "Choose between static, build-time and in-browser execution"
   - "Know what to change when this template becomes an R course"
+cheatsheet:
+  - { code: "python", text: "Fence: static, highlighted" }
+  - { code: "{python}", text: "Fence: runs at build time" }
+  - { code: "{webr-r}", text: "Fence: live R in the browser" }
+  - { code: "filename=\"a.py\"", text: "Show a filename on a block" }
+rail-links:
+  - { title: "Quarto code blocks", url: "https://quarto.org/docs/authoring/code-blocks.html", icon: "fa-code" }
+  - { title: "quarto-webr extension", url: "https://github.com/coatless/quarto-webr", icon: "fa-brands fa-github" }
+  - { title: "WebR documentation", url: "https://docs.r-wasm.org/webr/latest/", icon: "fa-book" }
 ---
 
 There are three levels of "code" in a lesson, from simplest to most interactive.

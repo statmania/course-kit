@@ -7,6 +7,15 @@ objectives:
   - "Add key takeaways that move into the right column"
   - "Use callouts, discussion prompts and both quiz types"
   - "Put asides in the margin"
+cheatsheet:
+  - { code: ".takeaways", text: "Div class: key takeaways card" }
+  - { code: ".callout-tip", text: "Div class: callout box" }
+  - { code: ".column-margin", text: "Div class: aside in the right rail" }
+  - { code: ".panel-tabset", text: "Div class: tabs" }
+  - { code: "data-quiz=\"mcq\"", text: "Multiple-choice quiz" }
+rail-links:
+  - { title: "Quarto callouts", url: "https://quarto.org/docs/authoring/callouts.html", icon: "fa-book" }
+  - { title: "Quarto tabsets", url: "https://quarto.org/docs/interactive/layout.html#tabsets", icon: "fa-table-columns" }
 ---
 
 Every component below is shown live, followed by the source that produced it.
@@ -111,7 +120,7 @@ Content
 Exactly this: a row of tabs with one panel visible.
 :::
 
-Short asides can go in the margin with `.column-margin`. They sit beside the text at the point where you place them.
+Short asides, such as a glossary or a tip, go in the right column with `.column-margin`. Wherever you place them in the lesson, they are collected into the right-hand rail, between the resources and your notes.
 
 ::: {.column-margin}
 **Margin note.** This sits in the right-hand column. Use it for definitions, tips and links that should not interrupt the main text.

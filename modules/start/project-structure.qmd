@@ -6,6 +6,13 @@ kind: read
 objectives:
   - "Find any file in the project by its job"
   - "Know the single place that controls course order"
+cheatsheet:
+  - { code: "_quarto.yml", text: "Settings and course order" }
+  - { code: "index.qmd", text: "Home page metadata" }
+  - { code: "modules/", text: "One folder per module" }
+  - { code: "theme/", text: "SCSS, Lua filter, scripts" }
+rail-links:
+  - { title: "Quarto project basics", url: "https://quarto.org/docs/projects/quarto-projects.html", icon: "fa-book" }
 ---
 
 A course is one self-contained Quarto website project. Copy the whole folder to start a new course.

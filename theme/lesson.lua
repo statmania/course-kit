@@ -24,6 +24,22 @@ function Pandoc(doc)
     end
     h[#h + 1] = '</ul></div>'
   end
+  -- Right-rail cards (moved into the margin column by theme/scripts.html)
+  if m.cheatsheet then
+    h[#h + 1] = '<div class="rail-card cheatsheet"><h4><i class="fa-solid fa-rectangle-list"></i>Cheat sheet</h4><dl>'
+    for _, row in ipairs(m.cheatsheet) do
+      h[#h + 1] = '<div><dt><code>' .. esc(pandoc.utils.stringify(row.code)) .. '</code></dt><dd>' .. esc(pandoc.utils.stringify(row.text)) .. '</dd></div>'
+    end
+    h[#h + 1] = '</dl></div>'
+  end
+  if m["rail-links"] then
+    h[#h + 1] = '<div class="rail-card resources"><h4><i class="fa-solid fa-link"></i>Resources</h4><ul>'
+    for _, r in ipairs(m["rail-links"]) do
+      local icon = r.icon and pandoc.utils.stringify(r.icon) or "fa-arrow-up-right-from-square"
+      h[#h + 1] = '<li><a href="' .. esc(pandoc.utils.stringify(r.url)) .. '"><i class="fa-solid ' .. esc(icon) .. '"></i>' .. esc(pandoc.utils.stringify(r.title)) .. '</a></li>'
+    end
+    h[#h + 1] = '</ul></div>'
+  end
   table.insert(doc.blocks, 1, pandoc.RawBlock("html", table.concat(h, "\n")))
   return doc
 end

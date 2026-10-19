@@ -77,7 +77,7 @@ a.sidebar-link.sm-done .menu-text::after {
 }
 
 /* ---------- Centre column ---------- */
-main.content { max-width: 100%; padding-top: 1.25rem; padding-bottom: 4rem; }
+main.content { max-width: 100%; padding-top: 1.25rem; padding-bottom: 0.5rem; }
 /* page-layout: full makes Quarto lay every block div out as a page grid; keep
    our hand-built home blocks as ordinary blocks. */
 .ch.page-columns, .ch .page-columns:not(.ch-hero) { display: block; }
@@ -114,8 +114,14 @@ a { text-decoration-color: rgba(0,229,255,0.35); }
 .objectives ul { margin: 0; padding-left: 1.2rem; }
 
 /* prev / next as cards */
-.page-navigation { margin-top: 2.5rem; gap: 1rem; display: flex; }
-.nav-page { flex: 1; }
+.page-navigation { margin: 2rem 0 0; gap: 1rem; display: flex; justify-content: center; }
+.nav-page { flex: 1 1 0; }
+.nav-page:not(:has(a)) { display: none; }          /* empty "previous" on the first page */
+.nav-page-next { text-align: right; }
+/* lone card (first or last page): centred, not stretched */
+.nav-page-previous:not(:has(a)) + .nav-page-next,
+.nav-page-next:not(:has(a)) ~ .nav-page-previous { flex: 0 1 28rem; text-align: center; }
+.nav-page-previous:not(:has(a)) + .nav-page-next a { justify-content: center; }
 .nav-page a {
   display: block; padding: 0.9rem 1.1rem; border: 1px solid $sm-line; border-radius: 0.75rem;
   background: $sm-bg2; color: $sm-text !important; text-decoration: none !important;
@@ -387,4 +393,149 @@ div.sourceCode, pre { margin: 1.5rem 0; }
    parent's tracks, otherwise they re-create the sidebar track and squeeze. */
 @media (min-width: 992px) {
   #quarto-content main.content .page-columns { grid-template-columns: subgrid; grid-column: screen-start / screen-end; }
+}
+
+/* ---------- Footer (theme/footer.html) ---------- */
+.sm-footer { margin-top: 3rem; background: $sm-bg2; border-top: 1px solid $sm-line; position: relative; z-index: 1; }
+.sm-footer-inner {
+  max-width: 78rem; margin: 0 auto; padding: 2.75rem 1.5rem 2rem;
+  display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 2.5rem;
+}
+.sm-footer-logo { display: inline-flex; align-items: center; gap: 0.6rem; color: #fff !important; font-weight: 800; font-size: 1.15rem; text-decoration: none !important; }
+.sm-footer-brand p { color: $sm-muted; font-size: 0.9rem; line-height: 1.6; margin: 0.9rem 0 1.1rem; max-width: 22rem; }
+.sm-footer-col h4 { font-size: 0.74rem; letter-spacing: 0.1em; text-transform: uppercase; color: $sm-cyan !important; margin: 0 0 0.9rem; }
+.sm-footer-col > a { display: block; color: #c3cbe3 !important; font-size: 0.92rem; text-decoration: none !important; padding: 0.28rem 0; }
+.sm-footer-col > a:hover { color: $sm-cyan !important; }
+.sm-social { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.sm-social a {
+  width: 2.2rem; height: 2.2rem; display: grid; place-items: center; border-radius: 50%;
+  border: 1px solid $sm-line; background: rgba(255,255,255,0.03); color: #c3cbe3 !important;
+  text-decoration: none !important; transition: border-color .15s, color .15s, transform .15s;
+}
+.sm-social a:hover { color: $sm-cyan !important; border-color: rgba(0,229,255,0.5); transform: translateY(-2px); }
+.sm-footer-bottom { border-top: 1px solid $sm-line; text-align: center; color: $sm-muted; font-size: 0.8rem; padding: 1rem 1.5rem; }
+@media (max-width: 991.98px) { .sm-footer-inner { grid-template-columns: 1fr 1fr; } .sm-footer-brand { grid-column: 1 / -1; } }
+@media (max-width: 575.98px) { .sm-footer-inner { grid-template-columns: 1fr; gap: 1.75rem; } }
+/* Quarto injects the footer into its page grid: span everything right of the sidebar. */
+@media (min-width: 992px) { .quarto-container > .sm-footer { grid-column: body-start / screen-end; } }
+
+/* ---------- Right-rail cards ---------- */
+#quarto-margin-sidebar { max-height: calc(100vh - 4.5rem); overflow-y: auto; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.18) transparent; padding: 0 0.6rem 1rem 0; }
+.rail-card {
+  background: rgba(255,255,255,0.03); border: 1px solid $sm-line; border-radius: 0.75rem;
+  padding: 0.85rem 1rem; margin: 1rem 0; font-size: 0.86rem; line-height: 1.5;
+}
+.rail-card h4 {
+  margin: 0 0 0.6rem !important; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: $sm-cyan !important;
+}
+.rail-card h4 i { margin-right: 0.4rem; }
+.rail-progress { background: none; border: none; padding: 0; }
+.rp-row { display: flex; justify-content: space-between; color: $sm-muted; font-size: 0.78rem; margin-bottom: 0.35rem; }
+.rp-row b { color: #fff; }
+.rp-track { height: 4px; border-radius: 4px; background: rgba(255,255,255,0.1); overflow: hidden; }
+.rp-fill { height: 100%; width: 0; background: linear-gradient(90deg, $sm-cyan, $sm-purple, $sm-pink); transition: width .15s; }
+.cheatsheet dl { margin: 0; }
+.cheatsheet dl > div { display: flex; flex-direction: column; padding: 0.4rem 0; border-top: 1px solid $sm-line; }
+.cheatsheet dl > div:first-child { border-top: none; padding-top: 0; }
+.cheatsheet dt { font-weight: 400; }
+.cheatsheet dd { margin: 0.15rem 0 0; color: $sm-muted; font-size: 0.8rem; }
+.resources ul { list-style: none; margin: 0; padding: 0; }
+.resources li a { display: flex; gap: 0.55rem; align-items: baseline; padding: 0.25rem 0; color: #c3cbe3 !important; text-decoration: none !important; }
+.resources li a:hover { color: $sm-cyan !important; }
+.resources li i { width: 1rem; color: $sm-cyan; font-size: 0.78rem; }
+.notes textarea {
+  width: 100%; resize: vertical; min-height: 5rem; background: $sm-bg2; color: $sm-text;
+  border: 1px solid $sm-line; border-radius: 0.5rem; padding: 0.5rem 0.6rem; font: inherit; font-size: 0.85rem;
+}
+.notes textarea:focus { outline: none; border-color: $sm-cyan; }
+.notes-hint { color: $sm-muted; font-size: 0.72rem; margin-top: 0.35rem; }
+
+/* ---------- Right rail: one ordered stack ----------
+   Quarto pins margin notes (.column-margin) beside their position in the source, far
+   below the rail's visible area. Turn them into ordinary cards in the stack. */
+#quarto-margin-sidebar { display: flex; flex-direction: column; }
+#quarto-margin-sidebar > .takeaways { order: 0; }
+#quarto-margin-sidebar > #TOC, #quarto-margin-sidebar > nav, #quarto-margin-sidebar > h2#toc-title, #quarto-margin-sidebar > .toc-active { order: 1; }
+#quarto-margin-sidebar > .rail-progress { order: 2; }
+#quarto-margin-sidebar > .cheatsheet { order: 3; }
+#quarto-margin-sidebar > .resources { order: 4; }
+#quarto-margin-sidebar > .column-margin, #quarto-margin-sidebar > .margin-aside { order: 5; }
+#quarto-margin-sidebar > .notes { order: 6; }
+#quarto-margin-sidebar > .complete-card { order: 7; }
+#quarto-margin-sidebar .column-margin, #quarto-margin-sidebar .margin-aside {
+  position: static !important; top: auto !important; float: none !important;
+  margin: 1rem 0 !important; width: auto !important;
+  background: rgba(255,255,255,0.03); border: 1px solid $sm-line; border-radius: 0.75rem;
+  padding: 0.85rem 1rem; font-size: 0.86rem; line-height: 1.5; color: #c3cbe3;
+}
+#quarto-margin-sidebar .column-margin > p { margin: 0 0 0.45rem; }
+#quarto-margin-sidebar .column-margin > p:first-child { color: $sm-cyan; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+#quarto-margin-sidebar .column-margin > p:last-child { margin-bottom: 0; }
+
+/* ---------- Small screens: "On this page" dropdown (ported from blograw) ---------- */
+.sm-toc-mobile { display: none; }
+@media (max-width: 991.98px) {
+  .quarto-sidebar-toggle, #quarto-toc-toggle { display: none !important; }
+  .sm-toc-mobile {
+    display: block; position: sticky; top: 3.6rem; z-index: 20; margin: 0 0 1.2rem;
+    background: rgba(10,15,30,0.94); backdrop-filter: blur(8px);
+    border: 1px solid rgba(0,229,255,0.25); border-radius: 12px; box-shadow: 0 0 18px rgba(0,229,255,0.12);
+  }
+  .sm-toc-mobile summary {
+    cursor: pointer; list-style: none; padding: 0.6rem 1rem; display: flex; align-items: center;
+    justify-content: space-between; gap: 0.75rem; color: $sm-cyan; text-transform: uppercase;
+    letter-spacing: 0.12em; font-size: 0.72rem;
+  }
+  .sm-toc-mobile summary::-webkit-details-marker { display: none; }
+  .sm-toc-mobile summary::after {
+    content: ""; flex: none; width: 0.5rem; height: 0.5rem; margin-right: 0.2rem;
+    border-right: 2px solid $sm-cyan; border-bottom: 2px solid $sm-cyan; transform: rotate(45deg); transition: transform .2s;
+  }
+  .sm-toc-mobile[open] summary::after { transform: rotate(-135deg); }
+  .sm-toc-mobile nav { max-height: 55vh; overflow-y: auto; border-top: 1px solid $sm-line; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent; }
+  .sm-toc-mobile a { display: block; padding: 0.5rem 1rem; font-size: 0.92rem; color: $sm-text !important; text-decoration: none !important; border-left: 2px solid transparent; }
+  .sm-toc-mobile a:hover { background: rgba(0,229,255,0.08); border-left-color: $sm-cyan; }
+  .sm-toc-mobile a.active { color: $sm-cyan !important; border-left-color: $sm-purple; background: linear-gradient(90deg, rgba(168,85,247,0.18), transparent); }
+}
+.ch-tabs button i { margin-right: 0.45rem; }
+#quarto-margin-sidebar > * { flex: none; }
+
+/* Quarto collapses the right column into an "On this page" pill (children get inline
+   opacity:0) whenever it is taller than the window. Our rail scrolls on its own, so
+   keep it open at every size; small screens use the .sm-toc-mobile dropdown instead. */
+@media (min-width: 992px) {
+  #quarto-margin-sidebar > * { opacity: 1 !important; pointer-events: auto !important; overflow: visible !important; }
+  #quarto-margin-sidebar .quarto-sidebar-toggle, .quarto-sidebar-toggle { display: none !important; }
+}
+#quarto-margin-sidebar .column-margin, #quarto-margin-sidebar .margin-aside {
+  height: auto !important; min-height: 0 !important; max-height: none !important; display: block !important; overflow: visible !important;
+}
+
+/* ---------- Phones and tablets: the right rail becomes a normal stack under the lesson ----------
+   Quarto turns the margin column into a collapsed menu on small screens (children get inline
+   opacity:0 yet keep their height). Undo that: show the cards in flow; the outline lives in
+   the sticky .sm-toc-mobile dropdown instead. */
+@media (max-width: 991.98px) {
+  #quarto-margin-sidebar {
+    position: static !important; max-height: none !important; overflow: visible !important;
+    grid-column: body-content-start / body-content-end !important; grid-row: auto !important; width: auto !important;
+    margin: 2.25rem 0 1rem; padding: 0; display: flex; flex-direction: column;
+  }
+  #quarto-margin-sidebar > * { opacity: 1 !important; pointer-events: auto !important; overflow: visible !important; }
+  #quarto-margin-sidebar > #TOC, #quarto-margin-sidebar > .toc-active, #quarto-margin-sidebar > nav,
+  #quarto-margin-sidebar > h2#toc-title, #quarto-margin-sidebar > .rail-progress { display: none !important; }
+  #quarto-margin-sidebar .rail-card, #quarto-margin-sidebar .takeaways, #quarto-margin-sidebar .column-margin { margin: 0 0 1rem !important; }
+  .sm-toc-mobile { top: 3.9rem; }
+  .ch-hero { padding: 1.25rem 1.15rem; }
+  h1.ch-title { font-size: 1.7rem; }
+  .ch-byline { flex-wrap: wrap; }
+  .ch-card-inline { margin: 1rem 0 0; position: static; }
+  .stats { gap: 0.6rem; }
+  ul.outcomes { padding: 1rem; }
+  .ch-tabs button { padding: 0.6rem 0.2rem; font-size: 0.82rem; }
+  .ch-tabs button i { display: none; }
+  .lesson-row { flex-wrap: wrap; }
+  .lr-meta { flex-direction: row; gap: 0.5rem; margin-left: auto; }
+  .sm-footer-inner { padding-top: 2rem; }
 }

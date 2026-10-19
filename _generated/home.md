@@ -16,9 +16,9 @@
 </section>
 
 <div class="ch-tabs" role="tablist">
-  <button role="tab" data-tab="overview" class="active">Overview</button>
-  <button role="tab" data-tab="content">Course content</button>
-  <button role="tab" data-tab="instructor">Instructor</button>
+  <button role="tab" data-tab="overview" class="active"><i class="fa-solid fa-table-cells-large"></i> Overview</button>
+  <button role="tab" data-tab="content"><i class="fa-solid fa-list-check"></i> Course content</button>
+  <button role="tab" data-tab="instructor"><i class="fa-solid fa-chalkboard-user"></i> Instructor</button>
 </div>
 
 <section class="ch-panel active" id="tab-overview">

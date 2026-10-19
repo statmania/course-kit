@@ -38,13 +38,44 @@
 
     var margin = document.getElementById('quarto-margin-sidebar');
     if (margin) {
+      var add = function (el) { margin.appendChild(el); return el; };
       var tk = document.querySelector('.takeaways');
       if (tk) { tk.classList.add('in-margin'); margin.insertBefore(tk, margin.firstChild); }
 
-      var card = document.createElement('div');
+      /* reading progress, under the outline */
+      var rp = add(document.createElement('div'));
+      rp.className = 'rail-card rail-progress';
+      rp.innerHTML = '<div class="rp-row"><span>Reading progress</span><b>0%</b></div><div class="rp-track"><div class="rp-fill"></div></div>';
+      var paintRp = function () {
+        var h = document.documentElement, max = h.scrollHeight - h.clientHeight;
+        var pct = max > 0 ? Math.round(Math.min(100, h.scrollTop / max * 100)) : 100;
+        rp.querySelector('b').textContent = pct + '%';
+        rp.querySelector('.rp-fill').style.width = pct + '%';
+      };
+      window.addEventListener('scroll', paintRp, { passive: true });
+      paintRp();
+
+      ['.cheatsheet', '.resources'].forEach(function (sel) {
+        var el = document.querySelector(sel);
+        if (el) add(el);
+      });
+      /* margin notes / glossary: collect into the rail, so they are reachable without scrolling */
+      document.querySelectorAll('#quarto-document-content .column-margin').forEach(add);
+
+      /* private notes, saved per lesson in this browser */
+      var NKEY = 'course-notes:' + rootPath + here;
+      var notes = add(document.createElement('div'));
+      notes.className = 'rail-card notes';
+      notes.innerHTML = '<h4><i class="fa-solid fa-pen-to-square"></i>My notes</h4><textarea rows="4" placeholder="Jot something down\u2026" aria-label="My notes for this lesson"></textarea><div class="notes-hint">Saved in this browser only.</div>';
+      var ta = notes.querySelector('textarea');
+      try { ta.value = localStorage.getItem(NKEY) || ''; } catch (e) {}
+      ta.addEventListener('input', function () {
+        try { if (ta.value) localStorage.setItem(NKEY, ta.value); else localStorage.removeItem(NKEY); } catch (e) {}
+      });
+
+      var card = add(document.createElement('div'));
       card.className = 'complete-card';
       card.innerHTML = '<button type="button" class="btn-complete"></button>';
-      margin.appendChild(card);
       var btn = card.querySelector('button');
       var paint = function () {
         var d = done.indexOf(here) > -1;
@@ -60,6 +91,47 @@
     }
   }
   paintSidebar();
+
+
+  /* ---- Small screens: "On this page" dropdown (sticky under the navbar) ----
+     Quarto's own TOC toggle is hidden in CSS; this one shows the current section. */
+  window.addEventListener('load', function () {
+    var toc = document.querySelector('#quarto-margin-sidebar #TOC');
+    var main = document.getElementById('quarto-document-content');
+    if (!toc || !main) return;
+    var hashOf = function (a) {
+      var h = a.getAttribute('data-scroll-target') || a.getAttribute('href') || '';
+      var i = h.indexOf('#');
+      return i < 0 ? '' : h.slice(i);
+    };
+    var srcs = [].filter.call(toc.querySelectorAll('a'), function (a) { return hashOf(a).length > 1; });
+    if (!srcs.length) return;
+    var box = document.createElement('details');
+    box.className = 'sm-toc-mobile';
+    var sum = document.createElement('summary');
+    var nav = document.createElement('nav');
+    nav.setAttribute('aria-label', 'On this page');
+    var links = srcs.map(function (src) {
+      var a = document.createElement('a');
+      a.href = hashOf(src);
+      a.textContent = src.textContent;
+      a.addEventListener('click', function () { box.open = false; });
+      nav.appendChild(a);
+      return a;
+    });
+    box.appendChild(sum);
+    box.appendChild(nav);
+    main.insertBefore(box, main.firstChild);
+    var heads = links.map(function (a) { return document.getElementById(decodeURIComponent(a.hash.slice(1))); });
+    var spy = function () {
+      var cur = 0;
+      heads.forEach(function (h, i) { if (h && h.getBoundingClientRect().top < 120) cur = i; });
+      links.forEach(function (a, i) { a.classList.toggle('active', i === cur); });
+      sum.textContent = 'On this page \u00b7 ' + (links[cur] ? links[cur].textContent : '');
+    };
+    window.addEventListener('scroll', spy, { passive: true });
+    spy();
+  });
 
   /* ---- Home page ---- */
   var ch = document.querySelector('.ch');
@@ -105,6 +177,18 @@
       t.addEventListener('click', function () { show(t.dataset.tab); history.replaceState(null, '', '#' + t.dataset.tab); });
     });
     if (location.hash) show(location.hash.slice(1));
+
+    /* small screens: the Start/progress card moves from the right rail to just under the hero */
+    var railCard = document.querySelector('.ch-card'), hero = ch.querySelector('.ch-hero');
+    if (railCard && hero) {
+      var rail = railCard.parentNode, mq = window.matchMedia('(max-width: 991.98px)');
+      var place = function () {
+        if (mq.matches) { hero.parentNode.insertBefore(railCard, hero.nextSibling); railCard.classList.add('ch-card-inline'); }
+        else { rail.appendChild(railCard); railCard.classList.remove('ch-card-inline'); }
+      };
+      place();
+      (mq.addEventListener ? mq.addEventListener('change', place) : mq.addListener(place));
+    }
 
     var toggle = document.getElementById('toggle-all');
     toggle.addEventListener('click', function () {
