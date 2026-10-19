@@ -5,3 +5,4 @@
 site_libs/
 search.json
 sitemap.xml
+!theme/*.html

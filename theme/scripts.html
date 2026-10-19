@@ -1,0 +1,156 @@
+<script>
+/* Course template behaviour: progress tracking (localStorage), the right-column
+   cards on lesson pages, and the home-page tabs/accordion. No dependencies. */
+(function () {
+  var offset = (document.querySelector('meta[name="quarto:offset"]') || {}).content || './';
+  var rootPath = new URL(offset, location.href).pathname;
+  var KEY = 'course-progress:' + rootPath;
+
+  function load() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; } }
+  function save(list) { try { localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {} }
+  function idOf(pathname) {
+    return pathname.replace(rootPath, '').replace(/\.html$/, '');
+  }
+  var here = idOf(location.pathname);
+  var done = load();
+
+  /* ---- Sidebar checkmarks (every page) ---- */
+  function paintSidebar() {
+    document.querySelectorAll('#quarto-sidebar a.sidebar-link').forEach(function (a) {
+      var id = idOf(new URL(a.getAttribute('href'), location.href).pathname);
+      a.classList.toggle('sm-done', done.indexOf(id) > -1);
+    });
+  }
+
+  /* ---- Lesson page: reading bar + right-column cards ---- */
+  var isLesson = !!document.querySelector('.lesson-meta');
+  if (isLesson) {
+    var bar = document.createElement('div');
+    bar.className = 'sm-readbar';
+    document.body.appendChild(bar);
+    var onScroll = function () {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? Math.min(100, h.scrollTop / max * 100) : 0) + '%';
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    var margin = document.getElementById('quarto-margin-sidebar');
+    if (margin) {
+      var tk = document.querySelector('.takeaways');
+      if (tk) { tk.classList.add('in-margin'); margin.insertBefore(tk, margin.firstChild); }
+
+      var card = document.createElement('div');
+      card.className = 'complete-card';
+      card.innerHTML = '<button type="button" class="btn-complete"></button>';
+      margin.appendChild(card);
+      var btn = card.querySelector('button');
+      var paint = function () {
+        var d = done.indexOf(here) > -1;
+        btn.classList.toggle('is-done', d);
+        btn.innerHTML = d ? '<i class="fa-solid fa-circle-check"></i> Completed' : '<i class="fa-regular fa-circle"></i> Mark as complete';
+      };
+      btn.addEventListener('click', function () {
+        var i = done.indexOf(here);
+        if (i > -1) done.splice(i, 1); else done.push(here);
+        save(done); paint(); paintSidebar();
+      });
+      paint();
+    }
+  }
+  paintSidebar();
+
+  /* ---- Home page ---- */
+  var ch = document.querySelector('.ch');
+  if (ch) {
+    var total = +ch.dataset.total;
+    var rows = ch.querySelectorAll('.lesson-row');
+    var refresh = function () {
+      var n = 0;
+      rows.forEach(function (r) {
+        var d = done.indexOf(r.dataset.lesson) > -1;
+        r.classList.toggle('is-done', d);
+        if (d) n++;
+      });
+      var pct = total ? Math.round(n / total * 100) : 0;
+      document.querySelector('.ring-pct').textContent = pct + '%';
+      document.querySelector('.ring-done').textContent = n;
+      var fg = document.querySelector('.ring-fg');
+      var c = 2 * Math.PI * 26;
+      fg.style.strokeDasharray = c;
+      fg.style.strokeDashoffset = c * (1 - pct / 100);
+      ch.querySelectorAll('.module').forEach(function (m) {
+        var mr = m.querySelectorAll('.lesson-row'), md = m.querySelectorAll('.lesson-row.is-done').length;
+        var cnt = m.querySelector('.mod-count');
+        cnt.textContent = md ? md + ' / ' + mr.length + ' done' : mr.length + ' lessons';
+      });
+      var next = Array.prototype.find.call(rows, function (r) { return !r.classList.contains('is-done'); });
+      var go = document.querySelector('.btn-go');
+      go.querySelector('.btn-go-label').textContent = n === 0 ? 'Start course' : (n === total ? 'Review course' : 'Continue');
+      go.setAttribute('href', next ? next.getAttribute('href') : ch.dataset.first);
+      document.querySelector('.btn-reset').hidden = n === 0;
+    };
+    document.querySelector('.btn-reset').addEventListener('click', function () {
+      done = []; save(done); refresh(); paintSidebar();
+    });
+    refresh();
+
+    var tabs = ch.querySelectorAll('.ch-tabs button');
+    var show = function (name) {
+      tabs.forEach(function (t) { t.classList.toggle('active', t.dataset.tab === name); });
+      ch.querySelectorAll('.ch-panel').forEach(function (p) { p.classList.toggle('active', p.id === 'tab-' + name); });
+    };
+    tabs.forEach(function (t) {
+      t.addEventListener('click', function () { show(t.dataset.tab); history.replaceState(null, '', '#' + t.dataset.tab); });
+    });
+    if (location.hash) show(location.hash.slice(1));
+
+    var toggle = document.getElementById('toggle-all');
+    toggle.addEventListener('click', function () {
+      var mods = ch.querySelectorAll('.module');
+      var open = toggle.textContent === 'Expand all';
+      mods.forEach(function (m) { m.open = open; });
+      toggle.textContent = open ? 'Collapse all' : 'Expand all';
+    });
+  }
+})();
+</script>
+<script>
+/* Quiz component: single-choice (data-quiz="mcq") and fill-in-the-blank
+   (data-quiz="fitb"). Graded client-side. Same markup contract as the
+   rprogramming course, so lessons can be ported unchanged. */
+(function () {
+  function norm(s) { return (s || '').trim(); }
+  function feedback(quiz, ok, msg) {
+    var fb = quiz.querySelector('.sm-quiz-feedback');
+    if (!fb) return;
+    if (msg) { fb.textContent = msg; fb.className = 'sm-quiz-feedback sm-quiz-feedback-bad'; return; }
+    fb.innerHTML = ok ? '<i class="fa-solid fa-circle-check"></i> Correct!' : '<i class="fa-solid fa-circle-xmark"></i> Not quite — try again.';
+    fb.className = 'sm-quiz-feedback ' + (ok ? 'sm-quiz-feedback-ok' : 'sm-quiz-feedback-bad');
+    if (ok) quiz.classList.add('sm-quiz-correct');
+  }
+  function gradeMcq(quiz) {
+    var checked = quiz.querySelector('input[type="radio"]:checked');
+    quiz.querySelectorAll('.sm-quiz-options label').forEach(function (l) { l.classList.remove('sm-quiz-picked'); });
+    if (!checked) return feedback(quiz, false, 'Pick an option first.');
+    checked.closest('label').classList.add('sm-quiz-picked');
+    feedback(quiz, norm(checked.value).toLowerCase() === norm(quiz.dataset.answer).toLowerCase());
+  }
+  function gradeFitb(quiz) {
+    var input = quiz.querySelector('.sm-quiz-blank');
+    if (!input) return;
+    var ok = norm(input.value) === norm(quiz.dataset.answer);
+    input.classList.toggle('sm-quiz-blank-ok', ok);
+    input.classList.toggle('sm-quiz-blank-bad', !ok);
+    feedback(quiz, ok);
+  }
+  document.querySelectorAll('.sm-quiz[data-quiz]').forEach(function (quiz) {
+    var grade = quiz.dataset.quiz === 'mcq' ? gradeMcq : gradeFitb;
+    var btn = quiz.querySelector('.sm-quiz-check');
+    if (btn) btn.addEventListener('click', function () { grade(quiz); });
+    var blank = quiz.querySelector('.sm-quiz-blank');
+    if (blank) blank.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); grade(quiz); } });
+  });
+})();
+</script>
