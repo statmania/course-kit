@@ -133,6 +133,22 @@ def build_home(cfg, modules):
             f'<div class="lesson-list">{rows}</div></details>'
         )
 
+    why = c.get("why")
+    why_html = ""
+    if why:
+        cards_html = "".join(
+            f'<div class="why-card"><i class="fa-solid {e(i["icon"])}"></i><h3>{e(i["title"])}</h3><p>{e(i["text"])}</p></div>'
+            for i in why.get("items", [])
+        )
+        repro = "".join(f"<div>{e(line)}</div>" for line in why.get("repro", []))
+        why_html = (
+            f'<h2 class="ch-h"><span class="ch-emoji">🔁</span> {e(why.get("title", ""))}</h2>'
+            f'<p class="why-intro">{e(why.get("intro", ""))}</p>'
+            f'<div class="why-grid">{cards_html}</div>'
+            + (f'<div class="why-repro"><span>Rebuild it yourself</span><code>{repro}</code></div>' if repro else "")
+            + (f'<p class="why-note"><i class="fa-solid fa-circle-info"></i> {e(why["cms_note"])}</p>' if why.get("cms_note") else "")
+        )
+
     initials = "".join(w[0] for w in inst.get("name", "?").split()[:2]).upper()
     home = f"""
 <div class="ch" data-total="{len(lessons)}" data-first="{e(first)}">
@@ -160,6 +176,7 @@ def build_home(cfg, modules):
   <h2 class="ch-h"><span class="ch-emoji">📚</span> What you'll learn</h2>
   <ul class="outcomes">{outcomes}</ul>
   <div class="stats">{stats_html}</div>
+  {why_html}
   <h2 class="ch-h"><span class="ch-emoji">🧰</span> Requirements</h2>
   <ul class="reqs">{reqs}</ul>
 </section>

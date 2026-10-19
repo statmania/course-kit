@@ -605,3 +605,21 @@ a.cc-btn:hover { box-shadow: 0 0 20px rgba(0,229,255,0.35); }
   .cat-main { order: -1; }
   h1.cat-title { font-size: 1.8rem; }
 }
+
+/* ---------- Home: "Why plain files" section ---------- */
+.why-intro { color: #c3cbe3; max-width: 46rem; margin-bottom: 1.1rem; }
+.why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.9rem; }
+.why-card { background: $sm-bg2; border: 1px solid $sm-line; border-radius: 0.9rem; padding: 1.1rem 1.2rem; transition: border-color .15s; }
+.why-card:hover { border-color: rgba(0,229,255,0.4); }
+.why-card > i { width: 2.3rem; height: 2.3rem; display: grid; place-items: center; border-radius: 0.65rem; color: $sm-cyan; background: rgba(0,229,255,0.1); font-size: 0.95rem; margin-bottom: 0.7rem; }
+.why-card:nth-child(3n+2) > i { color: $sm-purple; background: rgba(168,85,247,0.12); }
+.why-card:nth-child(3n) > i { color: $sm-pink; background: rgba(255,47,180,0.1); }
+.why-card h3, main.content .why-card h3 { font-size: 1rem; margin: 0 0 0.4rem; }
+.why-card p { color: $sm-muted; font-size: 0.88rem; line-height: 1.55; margin: 0; }
+.why-repro { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin: 1rem 0; padding: 0.9rem 1.1rem; background: $sm-bg2; border: 1px solid $sm-line; border-radius: 0.8rem; }
+.why-repro > span { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: $sm-cyan; }
+.why-repro code { display: block; background: none !important; color: #d7fff8; font-size: 0.85rem; line-height: 1.7; white-space: pre-wrap; word-break: break-all; }
+.why-note { color: $sm-muted; font-size: 0.88rem; border-left: 3px solid $sm-purple; padding: 0.2rem 0 0.2rem 0.9rem; margin: 1rem 0 0; }
+.why-note i { color: $sm-purple; margin-right: 0.4rem; }
+@media (max-width: 1199.98px) { .why-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 575.98px) { .why-grid { grid-template-columns: 1fr; } }

@@ -27,6 +27,20 @@ course:
     - { icon: "fa-circle-question", text: "Built-in quizzes" }
     - { icon: "fa-bars-progress", text: "Saved progress, no account" }
     - { icon: "fa-mobile-screen", text: "Works on phones" }
+  why:
+    title: "Why plain files, not a CMS?"
+    intro: "A course here is a folder of text files in git, built into a static site. That choice makes it reproducible, and it avoids what usually goes wrong with a CMS."
+    items:
+      - { icon: "fa-code-branch", title: "Every change is tracked", text: "Lessons are Markdown in git. Each edit is a reviewable diff, and any past version of the course can be restored in one command." }
+      - { icon: "fa-rotate", title: "One command rebuilds everything", text: "Clone the repo, run quarto render, and you get the same site. No database, no plugins and no hidden settings to drift." }
+      - { icon: "fa-chart-simple", title: "Results come from code", text: "Numbers, tables and plots can be produced at build time from the code on the page, so they are regenerated, not pasted in as screenshots." }
+      - { icon: "fa-people-group", title: "Review like software", text: "Collaborators propose changes as pull requests and comment line by line. A CMS gives you a revision list; this gives you a review workflow." }
+      - { icon: "fa-box-open", title: "No lock-in", text: "Content is plain text and the output is ordinary HTML. Move hosts, change tools or archive the course without exporting anything." }
+      - { icon: "fa-shield-halved", title: "Fast, free and low maintenance", text: "A static site has no login, no server to patch and no plugin updates. It can be hosted for free on GitHub Pages." }
+    repro:
+      - "git clone https://github.com/statmania/course-kit.git"
+      - "cd course-kit && quarto render"
+    cms_note: "A CMS is still the better choice when many non-technical people must edit in a visual editor, or when you need server features such as user accounts, grading or payments. This kit gives learners progress tracking and quizzes in the browser, but not those."
 ---
 
 {{< include _generated/home.md >}}
