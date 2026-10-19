@@ -1,0 +1,8 @@
+---
+title: "Make It Yours"
+description: "Re-skin the theme, then render and deploy."
+---
+
+Once your lessons exist, these two lessons cover the look of the course and getting it online.
+
+{{< include ../../_generated/publishing.md >}}

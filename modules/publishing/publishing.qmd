@@ -1,0 +1,54 @@
+---
+title: "Rendering and publishing"
+description: "Preview locally, render, and deploy the finished course."
+minutes: 6
+kind: quiz
+objectives:
+  - "Preview while writing"
+  - "Render the final site"
+  - "List what to check before you publish"
+---
+
+## Preview while you write
+
+```bash
+quarto preview
+```
+
+The page reloads when you save. The pre-render script runs first, so the home page and module pages are always current.
+
+## Render the site
+
+```bash
+quarto render
+```
+
+Because `output-dir` is `.`, the HTML lands next to the sources, which is how the `courses/` repo is served: `statmania.info/courses/<slug>/`.
+
+## Before you publish
+
+- [ ] Every lesson has `title`, `description`, `minutes` and `kind`.
+- [ ] Every lesson has a quiz or a takeaways block.
+- [ ] `index.qmd` outcomes match what the lessons actually teach.
+- [ ] Course appears in the hub page `courses/index.html`.
+- [ ] Previous and next links walk the lessons in the right order.
+
+## Check your understanding
+
+```{=html}
+<div class="sm-quiz" data-quiz="fitb" data-answer="quarto preview">
+  <p class="sm-quiz-q"><strong>Q1.</strong> Type the command that serves the course locally and reloads on save.</p>
+  <div class="sm-quiz-fitb-row">
+    <input type="text" class="sm-quiz-blank" placeholder="command" autocomplete="off" spellcheck="false" style="width:14rem">
+  </div>
+  <button class="sm-quiz-check">Check Answer</button>
+  <div class="sm-quiz-feedback"></div>
+</div>
+```
+
+You have finished the course. Press **Mark as complete** on this page, then go back to the course home and watch the progress ring reach 100%.
+
+::: {.takeaways}
+- `quarto preview` while writing, `quarto render` to publish.
+- Run the checklist before you ship.
+:::

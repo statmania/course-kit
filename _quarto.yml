@@ -1,0 +1,62 @@
+# Single source of truth for course structure: the sidebar below.
+# scripts/build.py reads it (plus each page's front matter) to generate the
+# home page and the module overview pages on every render.
+project:
+  type: website
+  output-dir: .
+  pre-render: scripts/build.py
+
+website:
+  title: "Stat Mania"
+  # site-url: "https://www.statmania.info/courses/<slug>/"   # set per course (enables sitemap.xml)
+  page-navigation: true
+  back-to-top-navigation: true
+  bread-crumbs: true
+  navbar:
+    background: dark
+    logo: img/statmania_logo.svg          # replace this file (or change the path) to rebrand
+    logo-href: https://www.statmania.info/   # where clicking the logo goes
+    left:
+      - href: index.qmd
+        text: "Course Template"
+      - href: ../index.html
+        text: All Courses
+        icon: mortarboard
+  sidebar:
+    style: docked
+    background: dark
+    title: "Course Template"
+    contents:
+      - text: "Course Home"
+        href: index.qmd
+      - section: "Start Here"
+        href: modules/start/index.qmd
+        contents:
+          - modules/start/how-it-works.qmd
+          - modules/start/project-structure.qmd
+      - section: "Writing Lessons"
+        href: modules/writing/index.qmd
+        contents:
+          - modules/writing/lesson-anatomy.qmd
+          - modules/writing/components.qmd
+          - modules/writing/code-cells.qmd
+      - section: "Make It Yours"
+        href: modules/publishing/index.qmd
+        contents:
+          - modules/publishing/theming.qmd
+          - modules/publishing/publishing.qmd
+
+format:
+  html:
+    theme: [cosmo, theme/course.scss]
+    page-layout: full
+    toc: true
+    toc-title: "On this page"
+    toc-depth: 3
+    smooth-scroll: true
+    filters:
+      - theme/lesson.lua
+    include-in-header:
+      text: |
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    include-after-body: theme/scripts.html

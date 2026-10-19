@@ -1,0 +1,36 @@
+---
+title: "Build a Course with the Stat Mania Template"
+description: "A self-guided tour of the course template itself: learn how modules, lessons, quizzes, takeaways and progress tracking fit together, then copy it to start your own course."
+title-block-style: none
+toc: false
+course:
+  category: ["Authoring", "Quarto"]
+  levels: ["Beginner"]
+  updated: "10.2026"
+  instructor:
+    name: "Stat Mania"
+    role: "Course authoring team"
+    bio: "Stat Mania builds free, hands-on statistics and programming courses that run entirely in the browser."
+  outcomes:
+    - "Understand how the three-column course layout maps to files and settings."
+    - "Create modules and lessons and put them in the right order."
+    - "Use front matter to drive lesson headers, time estimates and the home page."
+    - "Add takeaways, callouts, discussion prompts and graded quizzes."
+    - "Write code blocks, and know how to switch on live, executable code."
+    - "Customise colours and layout, then render and publish the course."
+  requirements:
+    - "A text editor and Quarto 1.4 or newer."
+    - "Python 3 with PyYAML (used by the pre-render script)."
+    - "No prior Quarto experience needed."
+  includes:
+    - { icon: "fa-layer-group", text: "Modules and lessons" }
+    - { icon: "fa-circle-question", text: "Built-in quizzes" }
+    - { icon: "fa-bars-progress", text: "Saved progress, no account" }
+    - { icon: "fa-mobile-screen", text: "Works on phones" }
+---
+
+{{< include _generated/home.md >}}
+
+::: {.column-margin}
+{{< include _generated/home-rail.md >}}
+:::

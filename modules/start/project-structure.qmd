@@ -1,0 +1,82 @@
+---
+title: "Project structure"
+description: "A tour of the folders and the one file that defines the course order."
+minutes: 5
+kind: read
+objectives:
+  - "Find any file in the project by its job"
+  - "Know the single place that controls course order"
+---
+
+A course is one self-contained Quarto website project. Copy the whole folder to start a new course.
+
+```text
+my-course/
+├── _quarto.yml            # site settings AND the course order (sidebar)
+├── index.qmd              # home page: course metadata lives in its front matter
+├── modules/
+│   ├── start/
+│   │   ├── index.qmd      # module overview page
+│   │   └── how-it-works.qmd   # a lesson
+│   └── writing/ ...
+├── scripts/build.py       # pre-render: generates the home + module pages
+├── theme/
+│   ├── course.scss        # colours, layout, components
+│   ├── lesson.lua         # draws the lesson header from front matter
+│   └── scripts.html       # progress tracking + quiz behaviour
+└── _generated/            # build output, never edit by hand
+```
+
+## One file controls the order
+
+The sidebar in `_quarto.yml` is the table of contents of the whole course:
+
+```yaml
+sidebar:
+  contents:
+    - text: "Course Home"
+      href: index.qmd
+    - section: "Start Here"
+      href: modules/start/index.qmd
+      contents:
+        - modules/start/how-it-works.qmd
+        - modules/start/project-structure.qmd
+```
+
+Reorder lines to reorder the course. Previous and next links, the home page and the module pages all follow this list.
+
+::: {.callout-tip}
+## Name files by topic
+Use `project-structure.qmd`, not `lesson2.qmd`. Moving a lesson then never means renaming files or fixing links.
+:::
+
+::: {.column-margin}
+**Glossary**
+
+*Module*: a group of lessons, one folder.
+
+*Lesson*: one `.qmd` page.
+
+*Front matter*: the YAML block at the top of a page.
+:::
+
+## Check your understanding
+
+```{=html}
+<div class="sm-quiz" data-quiz="mcq" data-answer="b">
+  <p class="sm-quiz-q"><strong>Q1.</strong> You want lesson B to come before lesson A. What do you change?</p>
+  <div class="sm-quiz-options">
+    <label><input type="radio" name="q-struct-1" value="a"> Rename the files with number prefixes</label>
+    <label><input type="radio" name="q-struct-1" value="b"> Swap their lines in the sidebar in <code>_quarto.yml</code></label>
+    <label><input type="radio" name="q-struct-1" value="c"> Edit <code>_generated/home.md</code></label>
+  </div>
+  <button class="sm-quiz-check">Check Answer</button>
+  <div class="sm-quiz-feedback"></div>
+</div>
+```
+
+::: {.takeaways}
+- One folder = one self-contained course.
+- The sidebar in `_quarto.yml` defines the order.
+- Name files by topic, not by number.
+:::

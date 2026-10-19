@@ -1,0 +1,8 @@
+---
+title: "Start Here"
+description: "What the template is, how a course is organised, and where every file lives."
+---
+
+This module gives you the big picture. Read the two lessons in order, then move on to writing your own.
+
+{{< include ../../_generated/start.md >}}

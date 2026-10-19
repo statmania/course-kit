@@ -1,0 +1,73 @@
+---
+title: "Anatomy of a lesson"
+description: "The front matter fields that drive the lesson header and the home page."
+minutes: 7
+kind: read
+objectives:
+  - "Write a lesson's front matter"
+  - "Choose a lesson kind and time estimate"
+  - "Write learning objectives that show up in the header"
+---
+
+Look at the top of this page: the coloured chips (*Reading*, *7 min*) and the box with objectives. None of that is written in the page body. It is all drawn from the front matter.
+
+## The front matter
+
+````markdown
+---
+title: "Anatomy of a lesson"
+description: "One sentence. Shown on the home page and in search."
+minutes: 7
+kind: read          # read | code | quiz | lab
+objectives:
+  - "Write a lesson's front matter"
+  - "Choose a lesson kind and time estimate"
+---
+````
+
+| Field | Used for |
+|---|---|
+| `title` | Page title, sidebar entry, home page row |
+| `description` | Subtitle and the grey line under the row on the home page |
+| `minutes` | The time chip, the module total and the course total |
+| `kind` | The icon and colour: **read**, **code**, **quiz** or **lab** |
+| `objectives` | The "By the end of this lesson you will" box |
+
+::: {.callout-important}
+## `minutes` switches the header on
+The header is only drawn on pages that define `minutes`. Module overview pages omit it on purpose.
+:::
+
+## A good lesson shape
+
+1. **Objectives** (from front matter).
+2. A short opening that says *why* this matters.
+3. One idea per `##` heading. Each heading becomes an entry in the right-hand outline.
+4. A **Check your understanding** section with one to three questions.
+5. A `.takeaways` block with two to four bullets.
+
+```{=html}
+<div class="sm-discuss">
+  <p class="sm-discuss-label"><i class="fa-solid fa-comments"></i>Discuss first</p>
+  <p>If you could only keep three bullets of this lesson, which would they be? Hold that thought: it is exactly what goes in the takeaways box.</p>
+</div>
+```
+
+## Check your understanding
+
+```{=html}
+<div class="sm-quiz" data-quiz="fitb" data-answer="minutes">
+  <p class="sm-quiz-q"><strong>Q1.</strong> Which front matter field turns the lesson header on?</p>
+  <div class="sm-quiz-fitb-row">
+    <input type="text" class="sm-quiz-blank" placeholder="field name" autocomplete="off" spellcheck="false">
+  </div>
+  <button class="sm-quiz-check">Check Answer</button>
+  <div class="sm-quiz-feedback"></div>
+</div>
+```
+
+::: {.takeaways}
+- Front matter drives the header, time estimates and the home page.
+- `kind` is one of read, code, quiz or lab.
+- Keep one idea per heading and end with a quiz and takeaways.
+:::

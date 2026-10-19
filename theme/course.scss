@@ -1,0 +1,390 @@
+/* Stat Mania course theme (dark only — see ../CLAUDE.md).
+   Layout: left = course tree (docked sidebar), centre = lesson,
+   right = "On this page" + key takeaways + mark-complete (margin column). */
+
+/*-- scss:defaults --*/
+
+$sm-bg: #05070d;
+$sm-bg2: #0a0f1e;
+$sm-cyan: #00e5ff;
+$sm-purple: #a855f7;
+$sm-pink: #ff2fb4;
+$sm-green: #4ade80;
+$sm-text: #e8ecf7;
+$sm-muted: #9aa5c4;
+$sm-line: rgba(255,255,255,0.09);
+
+$body-bg: $sm-bg;
+$body-color: $sm-text;
+$link-color: $sm-cyan;
+$navbar-bg: $sm-bg2;
+$navbar-fg: $sm-text;
+$code-bg: $sm-bg2;
+$code-color: #d7fff8;
+$sidebar-bg: $sm-bg2;
+
+// Quarto bakes these into the CSS grid at build time; never override widths
+// with plain CSS (see ../CLAUDE.md, "Sidebar width").
+$grid-sidebar-width: 290px !default;
+$grid-column-gutter-width: 2rem !default;
+
+/*-- scss:rules --*/
+
+html { background-color: $sm-bg !important; }
+body {
+  background:
+    radial-gradient(900px 480px at 12% -8%, rgba(0,229,255,0.08), transparent 60%),
+    radial-gradient(800px 520px at 92% 0%, rgba(168,85,247,0.09), transparent 60%),
+    $sm-bg !important;
+  background-attachment: fixed !important;
+}
+h1, h2, h3, h4 { color: #fff !important; letter-spacing: -0.01em; }
+h2 { margin-top: 2.2rem; padding-bottom: 0.35rem; border-bottom: 1px solid $sm-line; }
+.sm-gradient-text {
+  background: linear-gradient(90deg, #00e5ff, #7dd3fc 25%, #a855f7 55%, #ff2fb4 85%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 800;
+}
+.navbar-logo.light-content { display: inline-block !important; }
+.navbar-nav .nav-item:first-child > .nav-link { font-weight: 700; color: $sm-cyan !important; }
+
+/* ---------- Left column: course tree ---------- */
+#quarto-sidebar, .sidebar {
+  background-color: $sm-bg2 !important;
+  border-right: 1px solid $sm-line !important;
+}
+#quarto-margin-sidebar.sidebar { background-color: transparent !important; border-right: none !important; }
+.sidebar-title { color: #fff !important; font-weight: 800; }
+.sidebar-item a, .sidebar-item-text { color: #c7cee6 !important; }
+.sidebar-item-container { margin: 0.1rem 0; }
+.sidebar-item-container > a, .sidebar-item-container > .sidebar-item-text {
+  display: block; padding: 0.45rem 0.75rem; border-radius: 0.6rem;
+}
+.sidebar-item a:hover { color: $sm-cyan !important; background: rgba(0,229,255,0.08); }
+.sidebar-item.active > .sidebar-item-container > a,
+.sidebar-item a.active {
+  color: $sm-cyan !important; font-weight: 700;
+  background: rgba(0,229,255,0.14); box-shadow: inset 3px 0 0 0 $sm-cyan;
+}
+.sidebar-section > .sidebar-item-container > a,
+.sidebar-section > .sidebar-item-container > .sidebar-item-text {
+  text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.08em; font-weight: 700; color: $sm-muted !important;
+}
+.sidebar-item-section .sidebar-item-container > a { font-size: 0.92rem; }
+.sidebar-section { margin-top: 0.6rem; }
+a.sidebar-link.sm-done .menu-text::after {
+  content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900;
+  color: $sm-green; margin-left: 0.5rem; font-size: 0.8em;
+}
+
+/* ---------- Centre column ---------- */
+main.content { max-width: 100%; padding-top: 1.25rem; padding-bottom: 4rem; }
+/* page-layout: full makes Quarto lay every block div out as a page grid; keep
+   our hand-built home blocks as ordinary blocks. */
+.ch.page-columns, .ch .page-columns:not(.ch-hero) { display: block; }
+.ch .ch-hero.page-columns { display: block; }
+.ch > *, .ch .ch-hero > * { grid-column: auto; }
+.quarto-title h1.title, #title-block-header h1 { font-size: 2.1rem; font-weight: 800; }
+#title-block-header .description { color: $sm-muted; font-size: 1.05rem; }
+code:not(.qwebr-output-code-stdout) { color: $sm-cyan; background: rgba(0,229,255,0.08); }
+pre.sourceCode, div.sourceCode {
+  background: $sm-bg2 !important; border: 1px solid $sm-line !important; border-radius: 0.75rem;
+}
+a { text-decoration-color: rgba(0,229,255,0.35); }
+
+.lesson-meta { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0 0 1rem; }
+.lm-chip {
+  font-size: 0.78rem; font-weight: 600; padding: 0.22rem 0.7rem; border-radius: 999px;
+  border: 1px solid $sm-line; color: $sm-muted; background: rgba(255,255,255,0.03);
+}
+.lm-chip i { margin-right: 0.3rem; }
+.lm-read { color: $sm-cyan; border-color: rgba(0,229,255,0.3); }
+.lm-code { color: $sm-purple; border-color: rgba(168,85,247,0.35); }
+.lm-quiz { color: $sm-pink; border-color: rgba(255,47,180,0.35); }
+.lm-lab  { color: $sm-green; border-color: rgba(74,222,128,0.35); }
+
+.objectives {
+  background: $sm-bg2; border: 1px solid $sm-line; border-radius: 0.75rem;
+  padding: 1rem 1.25rem; margin: 0 0 1.5rem;
+}
+.objectives-label {
+  margin: 0 0 0.4rem !important; font-size: 0.75rem; font-weight: 700;
+  letter-spacing: 0.07em; text-transform: uppercase; color: $sm-cyan;
+}
+.objectives-label i { margin-right: 0.4rem; }
+.objectives ul { margin: 0; padding-left: 1.2rem; }
+
+/* prev / next as cards */
+.page-navigation { margin-top: 2.5rem; gap: 1rem; display: flex; }
+.nav-page { flex: 1; }
+.nav-page a {
+  display: block; padding: 0.9rem 1.1rem; border: 1px solid $sm-line; border-radius: 0.75rem;
+  background: $sm-bg2; color: $sm-text !important; text-decoration: none !important;
+  transition: border-color .15s, transform .15s;
+}
+.nav-page a:hover { border-color: rgba(0,229,255,0.5); transform: translateY(-1px); }
+.nav-page-text { color: #fff; font-weight: 600; }
+
+/* ---------- Right column ---------- */
+#quarto-margin-sidebar { top: 1.2rem; }
+#quarto-margin-sidebar #TOC, #quarto-margin-sidebar nav[role=doc-toc] { padding-bottom: 0.5rem; }
+#quarto-margin-sidebar h2#toc-title, #toc-title {
+  font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: $sm-muted !important; border: none; padding: 0; margin: 0 0 0.5rem;
+}
+#quarto-margin-sidebar .sidebar-navigation a, #TOC a { color: $sm-muted !important; font-size: 0.86rem; }
+#TOC a.active, #TOC a:hover { color: $sm-cyan !important; }
+#TOC .nav-link.active { border-left-color: $sm-cyan !important; }
+.takeaways {
+  background: linear-gradient(180deg, rgba(0,229,255,0.07), rgba(0,229,255,0.02));
+  border: 1px solid rgba(0,229,255,0.28); border-radius: 0.75rem;
+  padding: 0.9rem 1.1rem; margin: 1.5rem 0;
+}
+.takeaways::before {
+  content: "Key takeaways"; display: block; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase; color: $sm-cyan; margin-bottom: 0.4rem;
+}
+.takeaways ul { padding-left: 1.1rem; margin: 0; font-size: 0.9rem; }
+.takeaways li { margin: 0.25rem 0; }
+.takeaways.in-margin { margin: 0 0 1.25rem; }
+.complete-card { margin-top: 1.25rem; }
+.btn-complete {
+  width: 100%; padding: 0.6rem 1rem; border-radius: 999px; cursor: pointer; font-weight: 700; font-size: 0.88rem;
+  color: #04101c; border: none; background: linear-gradient(90deg, $sm-cyan, #38bdf8);
+}
+.btn-complete:hover { box-shadow: 0 0 20px rgba(0,229,255,0.35); }
+.btn-complete.is-done { background: rgba(74,222,128,0.14); color: $sm-green; border: 1px solid rgba(74,222,128,0.5); }
+.sm-readbar {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 2000;
+  background: linear-gradient(90deg, $sm-cyan, $sm-purple, $sm-pink);
+}
+.column-margin, .margin-aside, aside.sm-note {
+  font-size: 0.86rem; color: $sm-muted;
+}
+.sm-note-card {
+  background: rgba(255,255,255,0.03); border: 1px solid $sm-line; border-radius: 0.75rem; padding: 0.8rem 1rem;
+}
+
+/* ---------- Callouts / discuss / quiz ---------- */
+.callout { border-radius: 0.75rem !important; background: $sm-bg2 !important; border: 1px solid $sm-line !important; border-left-width: 4px !important; }
+.sm-discuss {
+  background: $sm-bg2; border: 1px solid rgba(168,85,247,0.35); border-left: 3px solid $sm-purple;
+  border-radius: 0.6rem; padding: 1rem 1.25rem; margin: 1.25rem 0;
+}
+.sm-discuss-label {
+  margin: 0 0 0.35rem !important; font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase; color: $sm-purple !important;
+}
+.sm-discuss-label i { margin-right: 0.4rem; }
+.sm-discuss p:last-child { margin-bottom: 0; }
+
+.sm-quiz { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 0.75rem; padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+.sm-quiz.sm-quiz-correct { border-color: rgba(74,222,128,0.5); }
+.sm-quiz-q { margin-top: 0 !important; color: #fff !important; }
+.sm-quiz-options { display: flex; flex-direction: column; gap: 0.5rem; margin: 0.75rem 0 1rem; }
+.sm-quiz-options label {
+  display: flex; align-items: center; gap: 0.6rem; padding: 0.5rem 0.75rem; border-radius: 0.5rem; cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02); transition: border-color .15s, background .15s;
+}
+.sm-quiz-options label:hover { border-color: rgba(0,229,255,0.35); }
+.sm-quiz-options label.sm-quiz-picked { border-color: $sm-cyan; background: rgba(0,229,255,0.06); }
+.sm-quiz-options input[type="radio"] { accent-color: $sm-cyan; }
+.sm-quiz-fitb-row { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0 1rem; font-family: var(--bs-font-monospace); color: $sm-cyan; }
+.sm-quiz-blank { width: 11rem; padding: 0.35rem 0.6rem; border-radius: 0.4rem; border: 1px solid rgba(255,255,255,0.2); background: $sm-bg2; color: #fff; font-family: inherit; }
+.sm-quiz-blank:focus { outline: none; border-color: $sm-cyan; }
+.sm-quiz-blank-ok { border-color: $sm-green !important; }
+.sm-quiz-blank-bad { border-color: #ff6b6b !important; }
+.sm-quiz-check {
+  padding: 0.5rem 1.25rem; border-radius: 999px; font-weight: 700; font-size: 0.88rem; cursor: pointer;
+  color: #04101c; background: linear-gradient(90deg, $sm-cyan, #38bdf8); border: none;
+}
+.sm-quiz-check:hover { box-shadow: 0 0 20px rgba(0,229,255,0.35); }
+.sm-quiz-feedback { margin-top: 0.75rem; font-weight: 600; font-size: 0.9rem; }
+.sm-quiz-feedback-ok { color: $sm-green; }
+.sm-quiz-feedback-bad { color: #ff8a8a; }
+.sm-quiz-feedback i { margin-right: 0.35rem; }
+
+/* ---------- Lesson rows (home + module pages) ---------- */
+.lesson-list { display: flex; flex-direction: column; gap: 0.4rem; margin: 0.5rem 0 1rem; }
+.lesson-row {
+  display: flex; align-items: center; gap: 0.9rem; padding: 0.7rem 0.9rem; border-radius: 0.7rem;
+  border: 1px solid $sm-line; background: rgba(255,255,255,0.02);
+  text-decoration: none !important; color: $sm-text !important; transition: border-color .15s, background .15s;
+}
+.lesson-row:hover { border-color: rgba(0,229,255,0.45); background: rgba(0,229,255,0.05); }
+.lr-icon { flex: none; width: 2.1rem; height: 2.1rem; display: grid; place-items: center; border-radius: 0.55rem; font-size: 0.85rem; }
+.lr-read { color: $sm-cyan; background: rgba(0,229,255,0.1); }
+.lr-code { color: $sm-purple; background: rgba(168,85,247,0.12); }
+.lr-quiz { color: $sm-pink; background: rgba(255,47,180,0.1); }
+.lr-lab  { color: $sm-green; background: rgba(74,222,128,0.1); }
+.lr-body { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.lr-title { font-weight: 600; }
+.lr-num { color: $sm-muted; font-weight: 500; margin-right: 0.55rem; font-variant-numeric: tabular-nums; }
+.lr-desc { color: $sm-muted; font-size: 0.85rem; }
+.lr-meta { flex: none; color: $sm-muted; font-size: 0.8rem; text-align: right; display: flex; flex-direction: column; }
+.lr-kind { text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.68rem; font-weight: 700; }
+.lr-check { flex: none; color: rgba(255,255,255,0.14); font-size: 1.05rem; }
+.lesson-row.is-done .lr-check { color: $sm-green; }
+
+/* ---------- Course home ---------- */
+.ch { margin-top: 0.5rem; }
+.ch-crumbs { font-size: 0.82rem; color: $sm-muted; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+.ch-crumbs a { color: $sm-muted; text-decoration: none; }
+.ch-crumbs a:hover { color: $sm-cyan; }
+.ch-crumbs i { font-size: 0.6rem; opacity: 0.6; }
+.ch-hero {
+  display: block;
+  background: $sm-bg2; border: 1px solid $sm-line; border-radius: 1.1rem; padding: 1.75rem 1.9rem;
+  box-shadow: 0 0 0 1px rgba(0,229,255,0.04), 0 20px 60px rgba(0,0,0,0.35);
+}
+.ch-chips { display: flex; gap: 0.4rem; margin-bottom: 0.9rem; }
+.chip { font-size: 0.74rem; font-weight: 700; padding: 0.2rem 0.65rem; border-radius: 0.4rem; }
+.chip-0 { color: $sm-pink; background: rgba(255,47,180,0.12); }
+.chip-1 { color: $sm-cyan; background: rgba(0,229,255,0.12); }
+.chip-2 { color: $sm-purple; background: rgba(168,85,247,0.14); }
+h1.ch-title { font-size: 2.15rem; font-weight: 800; line-height: 1.15; margin: 0 0 0.9rem; border: none; }
+.ch-desc { color: #c3cbe3; font-size: 1.02rem; line-height: 1.6; margin-bottom: 1.4rem; }
+.ch-byline { display: flex; align-items: center; gap: 0.75rem; padding-top: 1.1rem; border-top: 1px solid $sm-line; font-size: 0.85rem; color: $sm-muted; }
+.ch-by b { color: $sm-text; font-weight: 600; }
+.ch-updated { margin-left: auto; font-size: 0.78rem; }
+.ch-avatar {
+  flex: none; width: 2.4rem; height: 2.4rem; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 800; font-size: 0.85rem; color: #04101c; background: linear-gradient(135deg, $sm-cyan, $sm-purple);
+}
+.ch-avatar-lg { width: 4.2rem; height: 4.2rem; font-size: 1.3rem; }
+
+.ch-card {
+  position: sticky; top: 1rem; background: rgba(255,255,255,0.03); border: 1px solid $sm-line;
+  border-radius: 0.9rem; padding: 1.1rem 1.15rem;
+}
+.ring-row { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1rem; }
+.ring { width: 4rem; height: 4rem; transform: rotate(-90deg); }
+.ring circle { fill: none; stroke-width: 6; }
+.ring-bg { stroke: rgba(255,255,255,0.1); }
+.ring-fg { stroke: $sm-cyan; stroke-linecap: round; stroke-dasharray: 163.4; stroke-dashoffset: 163.4; transition: stroke-dashoffset .5s ease; }
+.ring-pct { font-size: 1.35rem; font-weight: 800; line-height: 1; color: #fff; }
+.ring-sub { font-size: 0.78rem; color: $sm-muted; margin-top: 0.2rem; }
+.btn-go {
+  display: block; text-align: center; padding: 0.65rem 1rem; border-radius: 999px; font-weight: 700; font-size: 0.92rem;
+  color: #04101c !important; text-decoration: none !important; background: linear-gradient(90deg, $sm-cyan, #38bdf8);
+}
+.btn-go:hover { box-shadow: 0 0 24px rgba(0,229,255,0.4); }
+.btn-reset, .btn-ghost {
+  background: none; border: none; color: $sm-muted; font-size: 0.78rem; cursor: pointer; padding: 0.4rem 0; width: 100%;
+}
+.btn-ghost { width: auto; border: 1px solid $sm-line; border-radius: 999px; padding: 0.3rem 0.8rem; }
+.btn-reset:hover, .btn-ghost:hover { color: $sm-cyan; }
+.ch-includes { list-style: none; padding: 0; margin: 0.9rem 0 0; font-size: 0.84rem; color: #c3cbe3; }
+.ch-includes li { display: flex; gap: 0.6rem; align-items: center; padding: 0.3rem 0; }
+.ch-includes i { width: 1rem; text-align: center; color: $sm-cyan; }
+
+.ch-tabs {
+  display: flex; gap: 0.25rem; margin: 1.5rem 0 1.25rem; padding: 0.3rem; border-radius: 0.9rem;
+  background: $sm-bg2; border: 1px solid $sm-line;
+}
+.ch-tabs button {
+  flex: 1; padding: 0.65rem 0.5rem; border: none; border-radius: 0.65rem; background: none;
+  color: $sm-muted; font-weight: 600; cursor: pointer;
+}
+.ch-tabs button:hover { color: #fff; }
+.ch-tabs button.active { background: rgba(0,229,255,0.12); color: $sm-cyan; box-shadow: inset 0 0 0 1px rgba(0,229,255,0.3); }
+.ch-panel { display: none; }
+.ch-panel.active { display: block; }
+h2.ch-h { font-size: 1.3rem; border: none; margin: 1.4rem 0 0.9rem; padding: 0; }
+.ch-emoji { margin-right: 0.4rem; }
+ul.outcomes {
+  list-style: none; padding: 1.1rem 1.3rem; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem 1.5rem;
+  background: $sm-bg2; border: 1px solid $sm-line; border-radius: 0.9rem;
+}
+.outcomes li { display: flex; gap: 0.65rem; color: #c3cbe3; font-size: 0.93rem; line-height: 1.5; }
+.outcomes i { color: $sm-green; margin-top: 0.3rem; font-size: 0.8rem; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin: 1.25rem 0; }
+.stat { background: rgba(255,255,255,0.03); border: 1px solid $sm-line; border-radius: 0.8rem; padding: 0.85rem 1rem; }
+.stat b { display: block; font-size: 1.5rem; color: #fff; line-height: 1.1; }
+.stat span { font-size: 0.78rem; color: $sm-muted; }
+ul.reqs { color: #c3cbe3; }
+.content-head { display: flex; justify-content: space-between; align-items: center; }
+.module { border: 1px solid $sm-line; border-radius: 0.9rem; background: $sm-bg2; margin-bottom: 0.8rem; overflow: hidden; }
+.module > summary {
+  display: flex; align-items: center; gap: 0.9rem; padding: 0.95rem 1.2rem; cursor: pointer; list-style: none;
+}
+.module > summary::-webkit-details-marker { display: none; }
+.mod-num { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: $sm-cyan; }
+.mod-title { font-weight: 700; color: #fff; flex: 1; }
+.mod-meta { font-size: 0.8rem; color: $sm-muted; }
+.mod-chev { font-size: 0.75rem; color: $sm-muted; transition: transform .2s; }
+.module[open] .mod-chev { transform: rotate(180deg); }
+.mod-desc { margin: 0 1.2rem 0.6rem; color: $sm-muted; font-size: 0.9rem; }
+.module .lesson-list { padding: 0 0.8rem 0.8rem; margin: 0; }
+.inst { display: flex; gap: 1.25rem; align-items: flex-start; background: $sm-bg2; border: 1px solid $sm-line; border-radius: 0.9rem; padding: 1.4rem; }
+.inst-role { color: $sm-cyan; font-weight: 600; margin-bottom: 0.5rem; }
+
+@media (max-width: 991.98px) {
+  .ch-hero { grid-template-columns: 1fr; }
+  .ch-card { position: static; }
+  ul.outcomes { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .ch-updated { display: none; }
+}
+
+/* Home page: span the page columns, and hide Quarto's own title header
+   (the hero draws the title). */
+body:has(.ch) #title-block-header { display: none; }
+
+pre code, pre.sourceCode code { background: none !important; }
+
+/* Full-page width: the body track flexes to fill the window and the right rail
+   keeps a fixed width. Same line names as Quarto's grid, only sizes changed
+   (the first track is the docked sidebar, sized from $grid-sidebar-width). */
+@media (min-width: 992px) {
+  #quarto-content.page-columns,
+  #quarto-content.page-columns,
+  #quarto-content main.content.page-columns {
+    grid-template-columns:
+      [screen-start] $grid-sidebar-width [screen-start-inset page-start page-start-inset body-start-outset body-start] 3.5rem [body-content-start]
+      minmax(0, 1fr)
+      [body-content-end] 3.5rem [body-end] 290px [body-end-outset page-end-inset page-end] 0
+      [screen-end-inset] 1.5rem [screen-end];
+  }
+}
+
+/* Keep the centre column from feeling cramped on very wide screens. */
+@media (min-width: 992px) {
+  main.content > * { max-width: 70rem; }
+  .ch { max-width: 70rem; }
+}
+.navbar-brand-container .navbar-logo { max-height: 30px; width: auto; }
+
+/* Reading comfort: slightly larger type and looser rhythm in the centre column. */
+main.content { font-size: 1.04rem; line-height: 1.75; }
+main.content p, main.content ul, main.content ol { margin-bottom: 1.15rem; }
+main.content h2 { margin-top: 2.8rem; margin-bottom: 1rem; }
+main.content h3 { margin-top: 2rem; }
+main.content .lesson-meta, .objectives { margin-bottom: 1.75rem; }
+div.sourceCode, pre { margin: 1.5rem 0; }
+.callout, .sm-quiz, .sm-discuss, .takeaways { margin-top: 1.75rem; margin-bottom: 1.75rem; }
+/* the home card now lives in the right rail */
+#quarto-margin-sidebar .ch-card { font-size: 0.95rem; line-height: 1.5; }
+.objectives ul, .takeaways ul { margin-bottom: 0 !important; }
+
+/* Tabsets (.panel-tabset): dark restyle of Bootstrap's light nav-tabs */
+.panel-tabset .nav-tabs { border-bottom: 1px solid $sm-line; gap: 0.25rem; }
+.panel-tabset .nav-tabs .nav-link {
+  color: $sm-muted; background: none; border: 1px solid transparent;
+  border-radius: 0.6rem 0.6rem 0 0; font-weight: 600; padding: 0.5rem 1rem;
+}
+.panel-tabset .nav-tabs .nav-link:hover { color: #fff; border-color: transparent; }
+.panel-tabset .nav-tabs .nav-link.active {
+  color: $sm-cyan; background: rgba(0,229,255,0.1);
+  border-color: $sm-line; border-bottom-color: transparent; box-shadow: inset 0 2px 0 $sm-cyan;
+}
+.panel-tabset .tab-content {
+  background: $sm-bg2; border: 1px solid $sm-line; border-top: none;
+  border-radius: 0 0 0.75rem 0.75rem; padding: 1rem 1.25rem;
+}
+.panel-tabset .tab-content > .tab-pane > :last-child { margin-bottom: 0; }
+
+/* Sections holding margin notes become nested grids; they must reuse the
+   parent's tracks, otherwise they re-create the sidebar track and squeeze. */
+@media (min-width: 992px) {
+  #quarto-content main.content .page-columns { grid-template-columns: subgrid; grid-column: screen-start / screen-end; }
+}

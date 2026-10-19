@@ -1,0 +1,75 @@
+---
+title: "How the template works"
+description: "The three columns, the generated home page and where progress is stored."
+minutes: 6
+kind: read
+objectives:
+  - "Name what each of the three columns is for"
+  - "Explain what is generated and what you write by hand"
+  - "Describe how progress is tracked without a server"
+---
+
+You are reading a lesson page right now, so you are already inside the template. Look at the screen: the course tree is on the left, this lesson is in the middle, and a context rail is on the right.
+
+## The three columns
+
+| Column | What it shows | Implemented with |
+|---|---|---|
+| **Left** | The course tree: modules, lessons, your current position, and a green check on finished lessons | Quarto's docked `sidebar` |
+| **Centre** | The lesson: header, objectives, content, quizzes, previous and next cards | The page body |
+| **Right** | "On this page" with scroll tracking, key takeaways, and a *Mark as complete* button | Quarto's margin column |
+
+On a narrow screen the left column collapses into a menu and the right column drops below the lesson.
+
+## What is generated, and what you write
+
+You write the lessons. Everything that merely *lists* lessons is generated, so it can never drift out of date.
+
+```{=html}
+<div class="sm-discuss">
+  <p class="sm-discuss-label"><i class="fa-solid fa-comments"></i>Discuss first</p>
+  <p>The course home page shows a lesson count, total time and quiz count. Where do you think those numbers come from: a hand-edited list, or the lessons themselves?</p>
+</div>
+```
+
+They come from the lessons. Before each render, `scripts/build.py` reads the sidebar order in `_quarto.yml` and the front matter of every lesson, then writes the home page and the module overview pages into `_generated/`. Add a lesson to the sidebar and it appears everywhere.
+
+::: {.callout-note}
+## Never edit `_generated/`
+Those files are overwritten on every render. Change the source (`_quarto.yml`, `index.qmd` or a lesson's front matter) instead.
+:::
+
+## Where progress lives
+
+When you press **Mark as complete** the lesson id is stored in your browser's `localStorage`. The sidebar check, the module counters and the progress ring on the home page all read that one list. There is no account and no server, which also means progress is per browser.
+
+## Check your understanding
+
+```{=html}
+<div class="sm-quiz" data-quiz="mcq" data-answer="c">
+  <p class="sm-quiz-q"><strong>Q1.</strong> Which column holds the "On this page" outline?</p>
+  <div class="sm-quiz-options">
+    <label><input type="radio" name="q-how-1" value="a"> The left column</label>
+    <label><input type="radio" name="q-how-1" value="b"> The centre column</label>
+    <label><input type="radio" name="q-how-1" value="c"> The right column</label>
+  </div>
+  <button class="sm-quiz-check">Check Answer</button>
+  <div class="sm-quiz-feedback"></div>
+</div>
+
+<div class="sm-quiz" data-quiz="fitb" data-answer="_generated">
+  <p class="sm-quiz-q"><strong>Q2.</strong> Fill in the blank: <code>build.py</code> writes the home page into the folder named below.</p>
+  <div class="sm-quiz-fitb-row">
+    <span>____/home.md</span>
+    <input type="text" class="sm-quiz-blank" placeholder="folder name" autocomplete="off" spellcheck="false">
+  </div>
+  <button class="sm-quiz-check">Check Answer</button>
+  <div class="sm-quiz-feedback"></div>
+</div>
+```
+
+::: {.takeaways}
+- Left = course tree, centre = lesson, right = context rail.
+- You write lessons; lists, counts and the home page are generated.
+- Progress is stored in the browser, with no server.
+:::

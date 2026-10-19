@@ -1,0 +1,124 @@
+---
+title: "Components"
+description: "Takeaways, callouts, discussion prompts, quizzes, tabs and margin notes."
+minutes: 12
+kind: read
+objectives:
+  - "Add key takeaways that move into the right column"
+  - "Use callouts, discussion prompts and both quiz types"
+  - "Put asides in the margin"
+---
+
+Every component below is shown live, followed by the source that produced it.
+
+## Key takeaways
+
+Wrap a bulleted list in a `.takeaways` div. On a wide screen the script lifts it into the **right column** at the top of the page, which is where the box at the top right of this page came from. On a narrow screen it stays inline.
+
+```markdown
+::: {.takeaways}
+- Short bullet one.
+- Short bullet two.
+:::
+```
+
+## Callouts
+
+Quarto's built-in callouts are already themed.
+
+::: {.callout-note}
+## A note
+Use for neutral background information.
+:::
+
+::: {.callout-warning}
+## A warning
+Use for mistakes that cost time.
+:::
+
+```markdown
+::: {.callout-tip}
+## Title
+Body text.
+:::
+```
+
+Types available: `note`, `tip`, `important`, `warning`, `caution`.
+
+## Discussion prompt
+
+Place a "Discuss first" box *before* the answer so learners commit to a guess.
+
+```html
+<div class="sm-discuss">
+  <p class="sm-discuss-label"><i class="fa-solid fa-comments"></i>Discuss first</p>
+  <p>What do you expect to happen, and why?</p>
+</div>
+```
+
+Wrap raw HTML in a ```` ```{=html} ```` fence so Quarto passes it through untouched.
+
+## Quizzes
+
+Two types, graded in the browser with no server. **Multiple choice** matches the `value` of the chosen radio button to `data-answer`:
+
+```{=html}
+<div class="sm-quiz" data-quiz="mcq" data-answer="b">
+  <p class="sm-quiz-q"><strong>Q1.</strong> How many options can be correct in a <code>mcq</code> quiz?</p>
+  <div class="sm-quiz-options">
+    <label><input type="radio" name="q-comp-1" value="a"> Any number</label>
+    <label><input type="radio" name="q-comp-1" value="b"> Exactly one</label>
+    <label><input type="radio" name="q-comp-1" value="c"> None</label>
+  </div>
+  <button class="sm-quiz-check">Check Answer</button>
+  <div class="sm-quiz-feedback"></div>
+</div>
+```
+
+**Fill in the blank** matches the typed text exactly (after trimming):
+
+```{=html}
+<div class="sm-quiz" data-quiz="fitb" data-answer="data-answer">
+  <p class="sm-quiz-q"><strong>Q2.</strong> Which attribute holds the correct answer?</p>
+  <div class="sm-quiz-fitb-row">
+    <input type="text" class="sm-quiz-blank" placeholder="attribute" autocomplete="off" spellcheck="false">
+  </div>
+  <button class="sm-quiz-check">Check Answer</button>
+  <div class="sm-quiz-feedback"></div>
+</div>
+```
+
+::: {.callout-warning}
+## Unique radio names
+Give each question its own radio `name` (for example `q-components-1`, `q-components-2`). Questions that share a name deselect each other.
+:::
+
+## Tabs and margin notes
+
+Use Quarto tabsets to show alternatives side by side:
+
+::: {.panel-tabset}
+## Markdown
+```markdown
+::: {.panel-tabset}
+## Tab one
+Content
+## Tab two
+Content
+:::
+```
+## Result
+Exactly this: a row of tabs with one panel visible.
+:::
+
+Short asides can go in the margin with `.column-margin`. They sit beside the text at the point where you place them.
+
+::: {.column-margin}
+**Margin note.** This sits in the right-hand column. Use it for definitions, tips and links that should not interrupt the main text.
+:::
+
+::: {.takeaways}
+- `.takeaways` lifts into the right column.
+- Quizzes are plain HTML with `data-quiz` and `data-answer`.
+- Use `.column-margin` for asides and `.panel-tabset` for alternatives.
+:::

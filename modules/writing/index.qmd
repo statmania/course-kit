@@ -1,0 +1,8 @@
+---
+title: "Writing Lessons"
+description: "Front matter, reusable components and code cells: everything you use day to day."
+---
+
+This is the module you will come back to most often. Each lesson focuses on one authoring skill.
+
+{{< include ../../_generated/writing.md >}}

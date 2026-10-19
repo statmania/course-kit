@@ -1,0 +1,84 @@
+---
+title: "Code blocks and live code"
+description: "Show code, run code at build time, or run it in the learner's browser."
+minutes: 9
+kind: code
+engine: markdown   # this page only *shows* code fences; no execution engine needed
+objectives:
+  - "Show syntax-highlighted code with a filename and line numbers"
+  - "Choose between static, build-time and in-browser execution"
+  - "Know what to change when this template becomes an R course"
+---
+
+There are three levels of "code" in a lesson, from simplest to most interactive.
+
+## 1. Static code
+
+A normal fenced block is highlighted and gets a copy button. Add a filename and line numbers when you want to refer to specific lines.
+
+```{.python filename="greet.py" code-line-numbers="true"}
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("Ada"))
+```
+
+## 2. Build-time execution
+
+Fence with the language in braces and Quarto runs the code when it renders, then embeds the output. Learners see the result but cannot edit it.
+
+````markdown
+```{python}
+squares = [n * n for n in range(1, 6)]
+squares
+```
+````
+
+This needs a Jupyter install (`python3 -m pip install jupyter`). The demo above is left unexecuted so this template renders with nothing but Quarto and PyYAML. For R, use the `knitr` engine with identical syntax: `{r}`.
+
+## 3. Live, in-browser execution
+
+For a course where learners edit and run code, add the **quarto-webr** extension. It runs a real R in the browser through WebAssembly, with nothing to install. The `rprogramming` course already uses it.
+
+````markdown
+---
+engine: knitr
+filters:
+  - webr
+---
+
+```{webr-r}
+x <- c(1, 2, 3)
+mean(x)
+```
+````
+
+::: {.callout-note}
+## Turning this template into the R course
+1. Copy this folder to `courses/rprogramming-v2/`.
+2. Run `quarto add coatless/quarto-webr` inside it.
+3. Add `engine: knitr` and `filters: [webr]` to lesson front matter (or once under `format.html` in `_quarto.yml`).
+4. Port the old lessons: the quiz and "discuss first" markup is identical, so they paste straight in.
+5. Copy `qwebr-force-dark.js` from the old course so the editor matches the dark theme.
+:::
+
+## Check your understanding
+
+```{=html}
+<div class="sm-quiz" data-quiz="mcq" data-answer="c">
+  <p class="sm-quiz-q"><strong>Q1.</strong> Which option lets learners edit and run code themselves?</p>
+  <div class="sm-quiz-options">
+    <label><input type="radio" name="q-code-1" value="a"> A plain fenced code block</label>
+    <label><input type="radio" name="q-code-1" value="b"> A build-time <code>{python}</code> cell</label>
+    <label><input type="radio" name="q-code-1" value="c"> A quarto-webr cell</label>
+  </div>
+  <button class="sm-quiz-check">Check Answer</button>
+  <div class="sm-quiz-feedback"></div>
+</div>
+```
+
+::: {.takeaways}
+- Static blocks show code, build-time cells show its output.
+- quarto-webr makes R cells editable and runnable in the browser.
+- Quiz markup is shared with the old R course, so lessons port unchanged.
+:::

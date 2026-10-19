@@ -1,0 +1,79 @@
+---
+title: "Theming"
+description: "Change colours and column widths from one SCSS file."
+minutes: 8
+kind: lab
+objectives:
+  - "Change the accent colours and the logo"
+  - "Resize the three columns safely"
+---
+
+All visual design lives in `theme/course.scss`. Quarto compiles it together with the Bootstrap *cosmo* theme.
+
+## Colours
+
+The palette is a handful of variables at the top of the file:
+
+```scss
+$sm-bg:     #05070d;   // page background
+$sm-bg2:    #0a0f1e;   // panels, cards, code blocks
+$sm-cyan:   #00e5ff;   // primary accent
+$sm-purple: #a855f7;
+$sm-pink:   #ff2fb4;
+```
+
+Change `$sm-cyan` and the buttons, links, active sidebar item, progress ring and chips all follow.
+
+::: {.callout-tip}
+## Panels use `$sm-bg2`
+Use `$sm-bg2` for anything that should read as a distinct panel. Using the page colour makes cards disappear into the background.
+:::
+
+## Logo
+
+The navbar logo is `img/statmania_logo.svg`. To change it:
+
+1. Drop your own file into `img/` (SVG is best; PNG works too).
+2. In `_quarto.yml`, point the navbar at it and choose where a click goes:
+
+```yaml
+website:
+  navbar:
+    logo: img/my-logo.svg
+    logo-href: https://www.statmania.info/
+```
+
+The logo is shown at most 30px tall, so a wide, short image works best. To remove it, delete the `logo:` line.
+
+## Column widths
+
+The lesson fills the window. Only the two side columns have fixed widths: the left course tree and the right rail.
+
+```scss
+$grid-sidebar-width: 290px !default;   // left course tree
+```
+
+The right rail width (`290px`) and the gutters are set in the `@media (min-width: 992px)` block at the bottom of the file. To keep lines readable on very wide screens, add `max-width: 75rem` to `main.content > *`.
+
+::: {.callout-warning}
+## Change the grid, not a CSS width on the sidebar
+Quarto lays the page out on a CSS grid. Setting `width` on `#quarto-sidebar` only resizes the box and clips the content, so edit `$grid-sidebar-width` or the grid block instead.
+:::
+
+## Your turn
+
+Open `theme/course.scss`, change `$sm-cyan` to `#facc15`, run `quarto preview`, and watch the whole course turn yellow. Then change it back.
+
+```{=html}
+<div class="sm-discuss">
+  <p class="sm-discuss-label"><i class="fa-solid fa-comments"></i>Discuss</p>
+  <p>Why do you think the template defines colours once as variables, instead of writing hex values wherever they are needed?</p>
+</div>
+```
+
+::: {.takeaways}
+- Edit colours via the `$sm-*` variables.
+- Swap the logo via `navbar.logo` in `_quarto.yml`.
+- The lesson column is fluid; resize the sides via `$grid-sidebar-width` and the grid block.
+- Use `$sm-bg2` for panels.
+:::
