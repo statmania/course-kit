@@ -1,0 +1,10 @@
+---
+title: "All Courses"
+description: "Browse every Stat Mania course."
+sidebar: false
+toc: false
+page-layout: custom
+title-block-style: none
+---
+
+{{< include _generated/catalog.md >}}

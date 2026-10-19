@@ -80,7 +80,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-0a6b7249c26820e032cb0bd839ff02b1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-c8f9a92c7209f8bab2b1c41c121fde26.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-8e6bdeed06b11b9711af3867e6301df3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -140,7 +140,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Course Template</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../index.html"> <i class="bi bi-mortarboard" role="img">
+    <a class="nav-link" href="../../courses.html"> <i class="bi bi-mortarboard" role="img">
 </i> 
 <span class="menu-text">All Courses</span></a>
   </li>  
@@ -620,6 +620,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       toggle.textContent = open ? 'Collapse all' : 'Expand all';
     });
   }
+})();
+</script>
+<script>
+/* All Courses page: card progress (read from each course's own saved progress),
+   "Continue learning", search, filters and sorting. */
+(function () {
+  var cat = document.querySelector('.cat');
+  if (!cat) return;
+  var cards = [].slice.call(cat.querySelectorAll('.cc'));
+
+  /* progress: every course on this domain stores 'course-progress:<its root path>' */
+  var cont = [];
+  cards.forEach(function (c) {
+    if (!c.dataset.root || c.dataset.root === '#') return;
+    var key = 'course-progress:' + new URL(c.dataset.root, location.href).pathname;
+    var n = 0;
+    try { n = (JSON.parse(localStorage.getItem(key)) || []).length; } catch (e) {}
+    var total = +c.dataset.total;
+    if (!n || !total) return;
+    var pct = Math.min(100, Math.round(n / total * 100));
+    var p = c.querySelector('.cc-prog');
+    p.hidden = false;
+    p.querySelector('i').style.width = pct + '%';
+    p.querySelector('span').textContent = n + ' of ' + total + ' lessons';
+    c.querySelector('.cc-btn-label').textContent = pct >= 100 ? 'Review course' : 'Continue';
+    if (pct < 100) cont.push({ title: c.querySelector('h3').textContent, href: c.dataset.root, pct: pct });
+  });
+  var box = document.getElementById('cat-continue');
+  if (cont.length) {
+    var ul = box.querySelector('ul');
+    cont.forEach(function (x) {
+      var li = document.createElement('li');
+      li.innerHTML = '<a></a><span></span>';
+      li.querySelector('a').textContent = x.title;
+      li.querySelector('a').href = x.href;
+      li.querySelector('span').textContent = x.pct + '%';
+      ul.appendChild(li);
+    });
+    box.hidden = false;
+  }
+
+  /* filters + search + sort */
+  var q = document.getElementById('cat-q'), sort = document.getElementById('cat-sort');
+  var count = document.getElementById('cat-count'), empty = document.getElementById('cat-empty');
+  var grid = cat.querySelector('.cat-grid');
+  var boxes = [].slice.call(cat.querySelectorAll('input[data-facet]'));
+  var apply = function () {
+    var chosen = {};
+    boxes.forEach(function (b) { if (b.checked) (chosen[b.dataset.facet] = chosen[b.dataset.facet] || []).push(b.value); });
+    var term = q.value.trim().toLowerCase(), shown = 0;
+    cards.forEach(function (c) {
+      var ok = Object.keys(chosen).every(function (k) { return chosen[k].indexOf(c.dataset[k]) > -1; });
+      if (ok && term) ok = c.dataset.text.indexOf(term) > -1;
+      c.hidden = !ok;
+      if (ok) shown++;
+    });
+    count.textContent = shown + (shown === 1 ? ' course' : ' courses');
+    empty.hidden = shown > 0;
+  };
+  var order = function () {
+    var by = sort.value;
+    cards.slice().sort(function (a, b) {
+      if (by === 'az') return a.dataset.title.localeCompare(b.dataset.title);
+      if (by === 'newest') return (b.dataset.updated || '').localeCompare(a.dataset.updated || '') || a.dataset.order - b.dataset.order;
+      return (b.dataset.featured - a.dataset.featured) || (a.dataset.order - b.dataset.order);
+    }).forEach(function (c) { grid.appendChild(c); });
+  };
+  boxes.forEach(function (b) { b.addEventListener('change', apply); });
+  q.addEventListener('input', apply);
+  sort.addEventListener('change', order);
+  document.getElementById('cat-clear').addEventListener('click', function () {
+    boxes.forEach(function (b) { b.checked = false; });
+    q.value = ''; apply();
+  });
+  order(); apply();
 })();
 </script>
 <script>

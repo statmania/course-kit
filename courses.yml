@@ -1,0 +1,48 @@
+# Catalog data for the "All Courses" page (courses.qmd). Edit freely; build.py turns it
+# into the page on every render. `self: true` fills lessons/hours from this course itself.
+intro: >-
+  Free, hands-on courses in statistics and programming. Every lesson runs in your browser,
+  with short quizzes to check your understanding. Pick a course, work through it at your own
+  pace, and your progress is remembered on this device.
+
+courses:
+  - slug: course-kit
+    self: true
+    title: "Build a Course with the Stat Mania Template"
+    description: "A guided tour of this very template: modules, lessons, quizzes and progress tracking. Copy it to start your own course."
+    url: "./"
+    icon: fa-layer-group
+    level: Beginner
+    category: Authoring
+    status: live
+    updated: "2026-10"
+    featured: true
+  - slug: rprogramming
+    title: "R Programming"
+    description: "Learn R with live code you edit and run in the browser: variables, vectors, functions, control flow, data frames and plotting."
+    url: "https://www.statmania.info/courses/rprogramming/"
+    icon: fa-chart-line
+    level: Beginner
+    category: Programming
+    status: live
+    lessons: 7
+    hours: 3.5
+    updated: "2026-10"
+    featured: true
+  - slug: statistics
+    title: "Statistics Foundations"
+    description: "Descriptive statistics, probability and inference with worked examples. (Example entry: replace with a real course.)"
+    url: "#"
+    icon: fa-square-poll-vertical
+    level: Intermediate
+    category: Statistics
+    status: soon
+
+# Suggested learning path (course slugs, in order) shown in the right-hand column.
+path: [course-kit, rprogramming, statistics]
+
+# "Help" links in the right-hand column.
+help:
+  - { text: "Request a course", url: "#", icon: fa-lightbulb }
+  - { text: "Report a problem", url: "#", icon: fa-bug }
+  - { text: "Join the discussion", url: "#", icon: fa-comments }

@@ -19,7 +19,7 @@ website:
     left:
       - href: index.qmd
         text: "Course Template"
-      - href: ../index.html
+      - href: courses.qmd
         text: All Courses
         icon: mortarboard
   sidebar:

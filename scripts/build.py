@@ -109,12 +109,15 @@ def build_home(cfg, modules):
     reqs = "".join(f"<li>{e(r)}</li>" for r in c.get("requirements", []))
     includes = "".join(f'<li><i class="fa-solid {e(i["icon"])}"></i>{e(i["text"])}</li>' for i in c.get("includes", []))
     stats = [
-        (len(modules), "modules"),
-        (len(lessons), "lessons"),
-        (hours, "of content"),
-        (quizzes, "quiz questions"),
+        (len(modules), "modules", "fa-layer-group"),
+        (len(lessons), "lessons", "fa-book-open"),
+        (hours, "of content", "fa-clock"),
+        (quizzes, "quiz questions", "fa-circle-question"),
     ]
-    stats_html = "".join(f'<div class="stat"><b>{e(n)}</b><span>{e(l)}</span></div>' for n, l in stats)
+    stats_html = "".join(
+        f'<div class="stat"><i class="fa-solid {ic}"></i><div><b>{e(n)}</b><span>{e(l)}</span></div></div>'
+        for n, l, ic in stats
+    )
 
     acc = []
     for mi, mod in enumerate(modules, 1):
@@ -190,11 +193,107 @@ def build_home(cfg, modules):
     (GEN / "home-rail.md").write_text(fenced(rail), encoding="utf-8")
 
 
+def build_catalog(modules):
+    cfg = yaml.safe_load((ROOT / "courses.yml").read_text(encoding="utf-8"))
+    lessons = [l for m in modules for l in m["lessons"]]
+    mins = sum(l["minutes"] for l in lessons)
+    courses = cfg["courses"]
+    for c in courses:
+        if c.get("self"):
+            c["lessons"] = len(lessons)
+            c["hours"] = round(mins / 60, 1)
+    by_slug = {c["slug"]: c for c in courses}
+
+    def facet(key):
+        counts = {}
+        for c in courses:
+            counts[c[key]] = counts.get(c[key], 0) + 1
+        return counts
+
+    def facet_html(title, key):
+        rows = "".join(
+            f'<label><input type="checkbox" data-facet="{key}" value="{e(v)}"> <span>{e(v)}</span><b>{n}</b></label>'
+            for v, n in sorted(facet(key).items())
+        )
+        return f'<div class="cat-group"><h4>{e(title)}</h4>{rows}</div>'
+
+    status_label = {"live": "Available", "soon": "Coming soon"}
+    status_rows = "".join(
+        f'<label><input type="checkbox" data-facet="status" value="{k}"> <span>{status_label[k]}</span><b>{sum(1 for c in courses if c["status"] == k)}</b></label>'
+        for k in ("live", "soon")
+        if any(c["status"] == k for c in courses)
+    )
+
+    cards = []
+    for i, c in enumerate(courses):
+        soon = c["status"] == "soon"
+        meta = []
+        if c.get("lessons"):
+            meta.append(f'<span><i class="fa-solid fa-book-open"></i> {c["lessons"]} lessons</span>')
+        if c.get("hours"):
+            meta.append(f'<span><i class="fa-regular fa-clock"></i> {c["hours"]} h</span>')
+        if c.get("updated"):
+            meta.append(f'<span><i class="fa-solid fa-pen"></i> {e(c["updated"])}</span>')
+        action = (
+            '<span class="cc-btn cc-soon">Coming soon</span>'
+            if soon
+            else f'<a class="cc-btn" href="{e(c["url"])}"><span class="cc-btn-label">Start course</span> <i class="fa-solid fa-arrow-right"></i></a>'
+        )
+        cards.append(
+            f'<div class="cc{" is-soon" if soon else ""}" data-slug="{e(c["slug"])}" data-root="{e(c["url"])}" data-total="{c.get("lessons", 0)}" '
+            f'data-level="{e(c["level"])}" data-category="{e(c["category"])}" data-status="{e(c["status"])}" '
+            f'data-updated="{e(c.get("updated", ""))}" data-featured="{1 if c.get("featured") else 0}" data-order="{i}" data-title="{e(c["title"]).lower()}" '
+            f'data-text="{e(c["title"] + " " + c["description"] + " " + c["category"]).lower()}">'
+            f'<div class="cc-thumb"><i class="fa-solid {e(c["icon"])}"></i></div>'
+            f'<div class="cc-body"><div class="cc-chips"><span class="chip chip-1">{e(c["level"])}</span><span class="chip chip-2">{e(c["category"])}</span></div>'
+            f'<h3><a href="{e(c["url"]) if not soon else "#"}">{e(c["title"])}</a></h3><p>{e(c["description"])}</p>'
+            f'<div class="cc-meta">{"".join(meta)}</div>'
+            f'<div class="cc-prog" hidden><div class="cc-prog-bar"><i></i></div><span></span></div>'
+            f'<div class="cc-foot">{action}</div></div></div>'
+        )
+
+    path = "".join(
+        f'<li class="{"is-soon" if by_slug[sl]["status"] == "soon" else ""}"><a href="{e(by_slug[sl]["url"])}">{e(by_slug[sl]["title"])}</a></li>'
+        for sl in cfg.get("path", []) if sl in by_slug
+    )
+    newest = sorted([c for c in courses if c.get("updated")], key=lambda c: c["updated"], reverse=True)[:3]
+    new_html = "".join(f'<li><a href="{e(c["url"])}">{e(c["title"])}</a><span>{e(c["updated"])}</span></li>' for c in newest)
+    help_html = "".join(f'<a href="{e(h["url"])}"><i class="fa-solid {e(h["icon"])}"></i>{e(h["text"])}</a>' for h in cfg.get("help", []))
+
+    html_out = f"""
+<div class="cat">
+  <div class="cat-filters">
+    <div class="cat-search"><i class="fa-solid fa-magnifying-glass"></i><input type="search" id="cat-q" placeholder="Search courses" aria-label="Search courses"></div>
+    {facet_html("Level", "level")}
+    {facet_html("Category", "category")}
+    <div class="cat-group"><h4>Status</h4>{status_rows}</div>
+    <button type="button" class="btn-ghost" id="cat-clear">Clear filters</button>
+  </div>
+  <div class="cat-main">
+    <h1 class="cat-title">All Courses</h1>
+    <p class="cat-intro">{e(cfg.get("intro", "")).strip()}</p>
+    <div class="cat-bar"><span id="cat-count"></span>
+      <label>Sort by <select id="cat-sort"><option value="featured">Featured</option><option value="newest">Newest</option><option value="az">A to Z</option></select></label></div>
+    <div class="cat-grid">{"".join(cards)}</div>
+    <p class="cat-empty" id="cat-empty" hidden>No courses match your filters.</p>
+  </div>
+  <div class="cat-rail">
+    <div class="rail-card" id="cat-continue" hidden><h4><i class="fa-solid fa-play"></i>Continue learning</h4><ul class="cat-list"></ul></div>
+    <div class="rail-card"><h4><i class="fa-solid fa-route"></i>Suggested path</h4><ol class="cat-path">{path}</ol></div>
+    <div class="rail-card"><h4><i class="fa-solid fa-star"></i>New &amp; updated</h4><ul class="cat-list">{new_html}</ul></div>
+    <div class="rail-card cat-help"><h4><i class="fa-solid fa-life-ring"></i>Help</h4>{help_html}</div>
+  </div>
+</div>
+"""
+    (GEN / "catalog.md").write_text(fenced(html_out), encoding="utf-8")
+
+
 def main():
     GEN.mkdir(exist_ok=True)
     cfg, modules = load_structure()
     build_module_pages(modules)
     build_home(cfg, modules)
+    build_catalog(modules)
     print(f"build.py: {len(modules)} modules, {sum(len(m['lessons']) for m in modules)} lessons", file=sys.stderr)
 
 

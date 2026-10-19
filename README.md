@@ -62,6 +62,11 @@ The "Writing Lessons" module in the course shows each of these working.
 - **Footer links and social icons:** edit `theme/footer.html` (social links are `#` placeholders).
 - **Site title and link:** `website.title` and `site-url` in `_quarto.yml`.
 
+- **"All Courses" page:** edit `courses.yml` (intro text, one entry per course, suggested path,
+  help links). Cards, filters and the right-hand column are built from it. If you already have
+  a course hub page elsewhere, point the "All Courses" link in `_quarto.yml` at it and delete
+  `courses.qmd` and `courses.yml`.
+
 ## 6. Things to know
 - Never edit the built `.html` files; edit the `.qmd` sources and re-render.
 - Never edit `_generated/`. It is rewritten on every render from `_quarto.yml` and the lessons.
