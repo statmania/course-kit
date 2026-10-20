@@ -48,3 +48,7 @@ course:
 ::: {.column-margin}
 {{< include _generated/home-rail.md >}}
 :::
+
+```{=html}
+<p class="progress-note"><i class="fa-solid fa-circle-info"></i> <span title="Progress is stored only in this browser on this device. It will not appear on another browser or device, and clearing site data erases it.">Progress is saved in this browser only.</span></p>
+```

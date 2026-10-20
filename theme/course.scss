@@ -65,12 +65,23 @@ h2 { margin-top: 2.2rem; padding-bottom: 0.35rem; border-bottom: 1px solid $sm-l
   color: $sm-cyan !important; font-weight: 700;
   background: rgba(0,229,255,0.14); box-shadow: inset 3px 0 0 0 $sm-cyan;
 }
-.sidebar-section > .sidebar-item-container > a,
-.sidebar-section > .sidebar-item-container > .sidebar-item-text {
-  text-transform: uppercase; font-size: 0.72rem; letter-spacing: 0.08em; font-weight: 700; color: $sm-muted !important;
+/* Module headers (top-level sections) vs lessons (inside ul.sidebar-section) */
+.sidebar-item-section > .sidebar-item-container {
+  margin: 0.9rem 0 0.25rem; padding: 0.15rem 0.3rem 0.15rem 0;
+  border-radius: 0.6rem; background: rgba(168,85,247,0.10);
+  box-shadow: inset 3px 0 0 0 $sm-purple;
+  align-items: center;
 }
-.sidebar-item-section .sidebar-item-container > a { font-size: 0.92rem; }
-.sidebar-section { margin-top: 0.6rem; }
+.sidebar-item-section > .sidebar-item-container > a.sidebar-link {
+  flex: 1; font-size: 0.8rem; font-weight: 800; letter-spacing: 0.06em;
+  text-transform: uppercase; color: #fff !important;
+}
+.sidebar-item-section > .sidebar-item-container > a.sidebar-link:hover { background: transparent; color: $sm-cyan !important; }
+.sidebar-item-section > .sidebar-item-container .sidebar-item-toggle { color: $sm-purple !important; }
+.sidebar-item-section > ul.sidebar-section {
+  margin: 0 0 0.2rem 0.9rem; padding-left: 0.5rem; border-left: 1px solid $sm-line;
+}
+.sidebar-item-section > ul.sidebar-section .sidebar-item-container > a { font-size: 0.88rem; font-weight: 400; }
 a.sidebar-link.sm-done .menu-text::after {
   content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900;
   color: $sm-green; margin-left: 0.5rem; font-size: 0.8em;
@@ -623,3 +634,8 @@ a.cc-btn:hover { box-shadow: 0 0 20px rgba(0,229,255,0.35); }
 .why-note i { color: $sm-purple; margin-right: 0.4rem; }
 @media (max-width: 1199.98px) { .why-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 575.98px) { .why-grid { grid-template-columns: 1fr; } }
+
+/* "Progress is saved in this browser only" note on the home page. Place it AFTER the
+   .column-margin block in index.qmd: Quarto anchors the right-hand card to the block before it. */
+.progress-note { color: $sm-muted; font-size: 0.85rem; margin-top: 1rem; }
+.progress-note span { cursor: help; border-bottom: 1px dotted $sm-muted; }
