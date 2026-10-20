@@ -16,11 +16,11 @@ rail-links:
   - { title: "Font Awesome icons", url: "https://fontawesome.com/search?ic=brands", icon: "fa-icons" }
 ---
 
-All visual design lives in `theme/course.scss`. Quarto compiles it together with the Bootstrap *cosmo* theme.
+The course has a dark theme (the default) and a light theme, and Quarto adds a toggle to the navbar. Each theme file (`theme/dark.scss`, `theme/light.scss`) only sets colour tokens; every rule lives once in `theme/_rules.scss`, so both themes always match. Quarto compiles them together with the Bootstrap *cosmo* theme.
 
 ## Colours
 
-The palette is a handful of variables at the top of the file:
+The palette is a handful of variables at the top of each theme file (the dark values are shown):
 
 ```scss
 $sm-bg:     #05070d;   // page background
@@ -74,7 +74,7 @@ Quarto lays the page out on a CSS grid. Setting `width` on `#quarto-sidebar` onl
 
 ## Your turn
 
-Open `theme/course.scss`, change `$sm-cyan` to `#facc15`, run `quarto preview`, and watch the whole course turn yellow. Then change it back.
+Open `theme/dark.scss`, change `$sm-cyan` to `#facc15`, run `quarto preview`, and watch the whole course turn yellow. Then change it back. For the light theme, change the same token in `theme/light.scss`.
 
 ```{=html}
 <div class="sm-discuss">

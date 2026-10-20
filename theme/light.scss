@@ -1,0 +1,40 @@
+/* Stat Mania course theme: light. All styling lives in _rules.scss; this file only sets tokens. */
+
+/*-- scss:defaults --*/
+
+$sm-bg: #f3f6fb;
+$sm-bg2: #ffffff;
+$sm-cyan: #0a5c73;
+$sm-purple: #6d28d9;
+$sm-pink: #9d174d;
+$sm-green: #166534;
+$sm-sky: #0369a1;
+$sm-text: #0f172a;
+$sm-muted: #3f4b66;
+$sm-soft: #27324d;
+$sm-heading: #020617;
+$sm-ink: #0f172a;
+$sm-line: rgba(15,23,42,0.18);
+$sm-on-accent: #ffffff;
+$code-color: #0b3a47;
+$sm-bad: #b91c1c;
+
+$body-bg: $sm-bg;
+$body-color: $sm-text;
+$text-muted: $sm-muted;
+$link-color: $sm-cyan;
+$navbar-bg: $sm-bg2;
+$navbar-fg: $sm-text;
+$code-bg: $sm-bg2;
+$sidebar-bg: $sm-bg2;
+
+// Quarto bakes these into the CSS grid at build time; never override widths
+// with plain CSS (see ../CLAUDE.md, "Sidebar width").
+$grid-sidebar-width: 290px !default;
+$grid-column-gutter-width: 2rem !default;
+
+/*-- scss:rules --*/
+@import "rules";
+
+// Stars are white; the animated background only makes sense on the dark theme.
+.sm-canvas { display: none !important; }

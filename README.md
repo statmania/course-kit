@@ -58,7 +58,7 @@ The "Writing Lessons" module in the course shows each of these working.
 
 ## 5. Make it yours
 - **Logo:** replace `img/statmania_logo.svg`, or change `navbar.logo` in `_quarto.yml`.
-- **Colours:** edit the `$sm-*` variables at the top of `theme/course.scss`.
+- **Colours and themes:** there is a dark theme (default) and a light theme, with a toggle in the navbar. Edit the `$sm-*` tokens at the top of `theme/dark.scss` and `theme/light.scss`; all styling is in `theme/_rules.scss` and must use tokens, never hard-coded colours.
 - **Starfield background:** set `starfield: true` at the top of `_quarto.yml` (default `false`). It loads the shared site script, so it needs an internet connection.
 - **Footer links and social icons:** edit `theme/footer.html` (social links are `#` placeholders).
 - **Site title and link:** `website.title` and `site-url` in `_quarto.yml`.

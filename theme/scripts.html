@@ -73,8 +73,12 @@
         try { if (ta.value) localStorage.setItem(NKEY, ta.value); else localStorage.removeItem(NKEY); } catch (e) {}
       });
 
-      var card = add(document.createElement('div'));
+      /* "Mark as complete" sits at the bottom of the lesson, just above the previous/next links */
+      var card = document.createElement('div');
       card.className = 'complete-card';
+      var pn = document.querySelector('#quarto-document-content nav.page-navigation, nav.page-navigation');
+      if (pn) pn.insertAdjacentElement('beforebegin', card);
+      else document.getElementById('quarto-document-content').appendChild(card);
       card.innerHTML = '<button type="button" class="btn-complete"></button>';
       var btn = card.querySelector('button');
       var paint = function () {

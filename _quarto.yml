@@ -17,7 +17,6 @@ website:
   back-to-top-navigation: true
   bread-crumbs: true
   navbar:
-    background: dark
     logo: img/statmania_logo.svg          # replace this file (or change the path) to rebrand
     logo-href: https://www.statmania.info/   # where clicking the logo goes
     left:
@@ -28,7 +27,6 @@ website:
         icon: mortarboard
   sidebar:
     style: docked
-    background: dark
     title: "Course Template"
     contents:
       - text: "Course Home"
@@ -52,7 +50,10 @@ website:
 
 format:
   html:
-    theme: [cosmo, theme/course.scss]
+    # Dark is the default (listed first); Quarto adds a light/dark toggle to the navbar.
+    theme:
+      dark: [cosmo, theme/dark.scss]
+      light: [cosmo, theme/light.scss]
     page-layout: full
     toc: true
     toc-title: "On this page"

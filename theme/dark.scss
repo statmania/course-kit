@@ -1,0 +1,36 @@
+/* Stat Mania course theme: dark. All styling lives in _rules.scss; this file only sets tokens. */
+
+/*-- scss:defaults --*/
+
+$sm-bg: #05070d;       // page background
+$sm-bg2: #0a0f1e;      // panels, sidebar, code blocks
+$sm-cyan: #00e5ff;
+$sm-purple: #a855f7;
+$sm-pink: #ff2fb4;
+$sm-green: #4ade80;
+$sm-sky: #38bdf8;
+$sm-text: #e8ecf7;
+$sm-muted: #9aa5c4;
+$sm-soft: #c3cbe3;     // secondary text
+$sm-heading: #fff;
+$sm-ink: #fff;         // base colour for translucent surfaces and borders
+$sm-line: rgba(255,255,255,0.09);
+$sm-on-accent: #04101c; // text on bright accent buttons
+$code-color: #d7fff8;
+$sm-bad: #ff8a8a;
+
+$body-bg: $sm-bg;
+$body-color: $sm-text;
+$link-color: $sm-cyan;
+$navbar-bg: $sm-bg2;
+$navbar-fg: $sm-text;
+$code-bg: $sm-bg2;
+$sidebar-bg: $sm-bg2;
+
+// Quarto bakes these into the CSS grid at build time; never override widths
+// with plain CSS (see ../CLAUDE.md, "Sidebar width").
+$grid-sidebar-width: 290px !default;
+$grid-column-gutter-width: 2rem !default;
+
+/*-- scss:rules --*/
+@import "rules";

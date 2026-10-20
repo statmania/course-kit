@@ -313,7 +313,7 @@
     "href": "modules/publishing/theming.html",
     "title": "Theming",
     "section": "",
-    "text": "Lab\n 8 min\nAll visual design lives in theme/course.scss. Quarto compiles it together with the Bootstrap cosmo theme.",
+    "text": "Lab\n 8 min\nThe course has a dark theme (the default) and a light theme, and Quarto adds a toggle to the navbar. Each theme file (theme/dark.scss, theme/light.scss) only sets colour tokens; every rule lives once in theme/_rules.scss, so both themes always match. Quarto compiles them together with the Bootstrap cosmo theme.",
     "crumbs": [
       "Course Template",
       "Make It Yours",
@@ -325,7 +325,7 @@
     "href": "modules/publishing/theming.html#colours",
     "title": "Theming",
     "section": "Colours",
-    "text": "Colours\nThe palette is a handful of variables at the top of the file:\n$sm-bg:     #05070d;   // page background\n$sm-bg2:    #0a0f1e;   // panels, cards, code blocks\n$sm-cyan:   #00e5ff;   // primary accent\n$sm-purple: #a855f7;\n$sm-pink:   #ff2fb4;\nChange $sm-cyan and the buttons, links, active sidebar item, progress ring and chips all follow.\n\n\n\n\n\n\nTipPanels use $sm-bg2\n\n\n\nUse $sm-bg2 for anything that should read as a distinct panel. Using the page colour makes cards disappear into the background.",
+    "text": "Colours\nThe palette is a handful of variables at the top of each theme file (the dark values are shown):\n$sm-bg:     #05070d;   // page background\n$sm-bg2:    #0a0f1e;   // panels, cards, code blocks\n$sm-cyan:   #00e5ff;   // primary accent\n$sm-purple: #a855f7;\n$sm-pink:   #ff2fb4;\nChange $sm-cyan and the buttons, links, active sidebar item, progress ring and chips all follow.\n\n\n\n\n\n\nTipPanels use $sm-bg2\n\n\n\nUse $sm-bg2 for anything that should read as a distinct panel. Using the page colour makes cards disappear into the background.",
     "crumbs": [
       "Course Template",
       "Make It Yours",
@@ -373,7 +373,7 @@
     "href": "modules/publishing/theming.html#your-turn",
     "title": "Theming",
     "section": "Your turn",
-    "text": "Your turn\nOpen theme/course.scss, change $sm-cyan to #facc15, run quarto preview, and watch the whole course turn yellow. Then change it back.\n\n  Discuss\n  Why do you think the template defines colours once as variables, instead of writing hex values wherever they are needed?\n\n\n\nEdit colours via the $sm-* variables.\nSwap the logo via navbar.logo in _quarto.yml.\nFooter links and social icons live in theme/footer.html.\nThe lesson column is fluid; resize the sides via $grid-sidebar-width and the grid block.\nUse $sm-bg2 for panels.",
+    "text": "Your turn\nOpen theme/dark.scss, change $sm-cyan to #facc15, run quarto preview, and watch the whole course turn yellow. Then change it back. For the light theme, change the same token in theme/light.scss.\n\n  Discuss\n  Why do you think the template defines colours once as variables, instead of writing hex values wherever they are needed?\n\n\n\nEdit colours via the $sm-* variables.\nSwap the logo via navbar.logo in _quarto.yml.\nFooter links and social icons live in theme/footer.html.\nThe lesson column is fluid; resize the sides via $grid-sidebar-width and the grid block.\nUse $sm-bg2 for panels.",
     "crumbs": [
       "Course Template",
       "Make It Yours",

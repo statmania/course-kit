@@ -28,7 +28,9 @@ my-course/
 │   └── writing/ ...
 ├── scripts/build.py       # pre-render: generates the home + module pages
 ├── theme/
-│   ├── course.scss        # colours, layout, components
+│   ├── dark.scss          # dark colour tokens (default theme)
+│   ├── light.scss         # light colour tokens
+│   ├── _rules.scss        # layout and components, shared by both
 │   ├── lesson.lua         # draws the lesson header from front matter
 │   └── scripts.html       # progress tracking + quiz behaviour
 └── _generated/            # build output, never edit by hand
