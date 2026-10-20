@@ -30,13 +30,19 @@ $grid-column-gutter-width: 2rem !default;
 
 /*-- scss:rules --*/
 
-html { background-color: $sm-bg !important; }
-body {
+/* Starfield: the page gradient lives on <html> and <body> is transparent, so the fixed canvas
+   (z-index -1) shows through. The centre column is an opaque panel so stars never run behind text. */
+html {
   background:
     radial-gradient(900px 480px at 12% -8%, rgba(0,229,255,0.08), transparent 60%),
     radial-gradient(800px 520px at 92% 0%, rgba(168,85,247,0.09), transparent 60%),
     $sm-bg !important;
   background-attachment: fixed !important;
+}
+body { background: transparent !important; }
+.sm-canvas {
+  position: fixed; inset: 0; width: 100vw; height: 100vh;
+  z-index: -2; display: block; pointer-events: none;
 }
 h1, h2, h3, h4 { color: #fff !important; letter-spacing: -0.01em; }
 h2 { margin-top: 2.2rem; padding-bottom: 0.35rem; border-bottom: 1px solid $sm-line; }
@@ -88,7 +94,13 @@ a.sidebar-link.sm-done .menu-text::after {
 }
 
 /* ---------- Centre column ---------- */
-main.content { max-width: 100%; padding-top: 1.25rem; padding-bottom: 0.5rem; }
+/* Opaque reading panel behind just the lesson column (main itself spans the whole width, so a
+   background on it would hide every star). An absolutely positioned grid item uses its grid area. */
+main.content::before {
+  content: ""; position: absolute; z-index: -1; grid-column: body-content-start / body-content-end;
+  inset: 0 -1.25rem; background: $sm-bg; border: 1px solid rgba(0,229,255,0.10); border-radius: 14px;
+}
+main.content { position: relative; max-width: 100%; padding-top: 1.25rem; padding-bottom: 0.5rem; }
 /* page-layout: full makes Quarto lay every block div out as a page grid; keep
    our hand-built home blocks as ordinary blocks. */
 .ch.page-columns, .ch .page-columns:not(.ch-hero) { display: block; }
