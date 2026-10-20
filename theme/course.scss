@@ -30,8 +30,9 @@ $grid-column-gutter-width: 2rem !default;
 
 /*-- scss:rules --*/
 
-/* Starfield: the page gradient lives on <html> and <body> is transparent, so the fixed canvas
-   (z-index -1) shows through. The centre column is an opaque panel so stars never run behind text. */
+/* Starfield (optional: `starfield: true` in _quarto.yml adds the canvas and the html.sm-starfield class).
+   The page gradient lives on <html> and <body> is transparent, so the fixed canvas shows through.
+   The centre column gets an opaque panel (below) so stars never run behind text. */
 html {
   background:
     radial-gradient(900px 480px at 12% -8%, rgba(0,229,255,0.08), transparent 60%),
@@ -96,7 +97,7 @@ a.sidebar-link.sm-done .menu-text::after {
 /* ---------- Centre column ---------- */
 /* Opaque reading panel behind just the lesson column (main itself spans the whole width, so a
    background on it would hide every star). An absolutely positioned grid item uses its grid area. */
-main.content::before {
+html.sm-starfield main.content::before {
   content: ""; position: absolute; z-index: -1; grid-column: body-content-start / body-content-end;
   inset: 0 -1.25rem; background: $sm-bg; border: 1px solid rgba(0,229,255,0.10); border-radius: 14px;
 }

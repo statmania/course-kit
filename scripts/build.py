@@ -305,9 +305,23 @@ def build_catalog(modules):
     (GEN / "catalog.md").write_text(fenced(html_out), encoding="utf-8")
 
 
+STARFIELD = """<!-- Starfield background (option `starfield: true` in _quarto.yml). Generated; do not edit. -->
+<script>document.documentElement.classList.add('sm-starfield');</script>
+<canvas class="sm-canvas" aria-hidden="true"></canvas>
+<script src="https://www.statmania.info/starfield.js" async></script>
+"""
+
+
+def build_starfield(cfg):
+    """Always write the include so _quarto.yml can reference it; it is empty when the option is off."""
+    on = bool(cfg.get("starfield", False))
+    (GEN / "starfield.html").write_text(STARFIELD if on else "<!-- starfield off -->\n", encoding="utf-8")
+
+
 def main():
     GEN.mkdir(exist_ok=True)
     cfg, modules = load_structure()
+    build_starfield(cfg)
     build_module_pages(modules)
     build_home(cfg, modules)
     build_catalog(modules)
